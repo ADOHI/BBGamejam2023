@@ -4,18 +4,19 @@ using BBGamejam.Global.Particles;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using DG.Tweening.Core.Easing;
+using Pixelplacement;
+using RabbitResurrection;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityAtoms.BaseAtoms;
 using UnityEngine;
 
 namespace BBGamejam.Global.Mode
 {
-    public class SlowModeManager : MonoBehaviour
+    public class SlowModeManager : Singleton<SlowModeManager>
     {
         private float slowModeProgress;
         private float easedSlowModeProgress;
@@ -53,7 +54,10 @@ namespace BBGamejam.Global.Mode
             }
 
             UpdateProgress();
-            UpdateSlowMode(this.easedSlowModeProgress);
+            if (!Managers.Game.IsGameOver)
+            {
+                UpdateSlowMode(this.easedSlowModeProgress);
+            }
         }
 
         private void UpdateProgress()
