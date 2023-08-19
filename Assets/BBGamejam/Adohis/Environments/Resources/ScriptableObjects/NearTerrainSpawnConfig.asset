@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb45c427a4cf324faee8b3e4744aff8, type: 3}
+  m_Name: NearTerrainSpawnConfig
+  m_EditorClassIdentifier: 
+  minGridWidth: 5
+  maxGridWidth: 8
+  minGridHeight: 5
+  maxGridHeight: 8
+  minXOffset: 0.05
+  maxXOffset: 0.2
+  minYOffset: 0.05
+  maxYOffset: 0.2
+  minXZScale: 1
+  maxXZScale: 4
+  minYScale: 0.9
+  maxYScale: 1.5
+  spawnXPositionOffset: 50
+  spawnYPositionOffset: -25
+  minZPosition: 1
+  maxZPosition: 5
+  destroyXPositionInterval: 0
+  minXZMultiply: 1
+  maxXZMultiply: 2
+  depthCorrection: 3
+  centerCorrection: 10
+  heightCorrection: 2
+  minYScaleThresholed: 1
+  minSpawnXPosInterval: 15
+  maxSpawnXPosInterval: 25
