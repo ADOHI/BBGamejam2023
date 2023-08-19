@@ -63,6 +63,7 @@ namespace RabbitResurrection
             rabbitReference.Value = rabbit.gameObject;
             zaraReference.Value = Zara.gameObject;
 
+            Managers.Game.GameStart();
         }
 
         public override void Clear()

@@ -11,10 +11,13 @@ namespace RabbitResurrection
         enum Texts
         {
             Text_ZaraHealth,
+            Text_KillCount,
         }
 
         [SerializeField] private int zaraHealth;
+        [SerializeField] private int killCount;
         private TextMeshProUGUI textZaraHealth;
+        private TextMeshProUGUI textKillCount;
         [SerializeField] private GameObject pannel_RabbitHealths;
         [SerializeField] private GameObject pannel_RabbitAirs;
         [SerializeField] private GameObject pannel_ZaraHealths;
@@ -30,7 +33,10 @@ namespace RabbitResurrection
             Bind<TextMeshProUGUI>(typeof(Texts));
 
             textZaraHealth = Get<TextMeshProUGUI>((int)Texts.Text_ZaraHealth);
-            textZaraHealth.text = zaraHealth.ToString();
+            textKillCount = Get<TextMeshProUGUI>((int)Texts.Text_KillCount);
+
+            textZaraHealth.text = $"LIFE {zaraHealth}";
+            textKillCount.text = $"Kill {killCount}";
         }
 
         public void AddRabbitHealth()
@@ -69,8 +75,14 @@ namespace RabbitResurrection
             if(zaraHealth > 0)
             {
                 zaraHealth--;
-                textZaraHealth.text = zaraHealth.ToString();
+                textZaraHealth.text = $"LIFE {zaraHealth}";
             }
+        }
+
+        public void AddKillCount()
+        {
+            killCount++;
+            textKillCount.text = $"Kill {killCount}";
         }
     }
 }

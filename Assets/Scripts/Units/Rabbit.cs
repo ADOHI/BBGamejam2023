@@ -18,6 +18,7 @@ namespace RabbitResurrection
         [HideInInspector] public Animator animator;
 
         private Coroutine AirChargeRoutine = null;
+        private int seatCount = 0;
 
         private void Awake()
         {
@@ -31,13 +32,23 @@ namespace RabbitResurrection
 
         private void FixedUpdate()
         {
-            if (!isSeat)
+            if (isSeat)
             {
-                var position = transform.position;
-                position.z = 0f;
-                transform.position = position;
+                Zara zara = (Managers.Scene.CurrentScene as InGameScene).Zara;
+                gameObject.transform.position = zara.Seat.transform.position;
+                gameObject.transform.rotation = zara.Seat.transform.rotation;
             }
         }
+
+        //private void FixedUpdate()
+        //{
+        //    if (!isSeat)
+        //    {
+        //        var position = transform.position;
+        //        position.z = 0f;
+        //        transform.position = position;
+        //    }
+        //}
 
         private void Init()
         {
@@ -52,6 +63,9 @@ namespace RabbitResurrection
             }
 
             Seat();
+
+            //Zara zara = (Managers.Scene.CurrentScene as InGameScene).Zara;
+            //gameObject.transform.position = zara.Seat.transform.position;
         }
 
         public void Push(Vector3 force)
@@ -64,22 +78,9 @@ namespace RabbitResurrection
                 if (isSeat)
                 {
                     Debug.Log("Push when seat");
-                    gameObject.transform.SetParent(null);
-                    
+
                     isSeat = false;
                 }
-
-                /*                gameObject.transform.rotation = Quaternion.identity;
-                                var rotation = gameObject.transform.rotation.eulerAngles;
-                                if (force.x > 0)
-                                {
-                                    rotation.y = 90f;
-                                }
-                                else
-                                {
-                                    rotation.y = -90f;
-                                }
-                                gameObject.transform.rotation = Quaternion.Euler(rotation);*/
 
                 transform.forward = force.normalized;
 
@@ -113,6 +114,7 @@ namespace RabbitResurrection
             {
                 (Managers.UI.SceneUI as UI_InGameScene).DamageRabbitAir();
                 air--;
+                Managers.Game.AirCount++;
             }
         }
 
@@ -122,12 +124,12 @@ namespace RabbitResurrection
             animator.SetBool("isIdle", true);
             isSeat = true;
 
-            Zara zara = (Managers.Scene.CurrentScene as InGameScene).Zara;
-            gameObject.transform.SetParent(zara.transform);
-            gameObject.transform.localPosition = zara.Seat.transform.localPosition;
-            gameObject.transform.localRotation = zara.Seat.transform.localRotation;
+            //Zara zara = (Managers.Scene.CurrentScene as InGameScene).Zara;
+            //gameObject.transform.SetParent(zara.transform);
+            //gameObject.transform.localPosition = zara.Seat.transform.localPosition;
+            //gameObject.transform.localRotation = zara.Seat.transform.localRotation;
 
-            _rigidbody.velocity = Vector3.zero;
+            //_rigidbody.velocity = Vector3.zero;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -145,7 +147,15 @@ namespace RabbitResurrection
                 Debug.Log("AirPocket Enter");
                 if (isSeat == false)
                 {
-                    Seat();
+                    if (seatCount == 0)
+                    {
+                        seatCount++;
+                    }
+                    else
+                    {
+                        Seat();
+
+                    }
                 }
 
                 if (!isCharging)
@@ -180,6 +190,11 @@ namespace RabbitResurrection
 
         private void OnTriggerExit(Collider other)
         {
+            if (other.tag == "AirPocket")
+            {
+                Debug.Log("Exit Air Pocket");
+            }
+
             if (other.tag == "AirPocket" && isCharging)
             {
                 isCharging = false;
