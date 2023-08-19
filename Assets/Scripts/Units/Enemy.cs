@@ -32,11 +32,11 @@ namespace RabbitResurrection
             while (Vector3.Distance(transform.position, _target.transform.position) >= 2.0f)
             {
                 Vector3 direction = _target.transform.position - transform.position;
-                transform.Translate(direction.normalized * _speed * Time.deltaTime * Managers.Game.RabbitTimeScale);
+                transform.Translate(direction.normalized * _speed * Time.deltaTime);
                 //transform.position = Vector3.MoveTowards(transform.position, _target.transform.position, _speed * Time.deltaTime);
                 //transform.LookAt(_target.transform.position);
 
-                yield return new WaitForSeconds(0.1f);
+                yield return null;
             }
 
             _target.GetComponent<Zara>().Damaged();
