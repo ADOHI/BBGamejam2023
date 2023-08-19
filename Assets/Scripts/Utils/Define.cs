@@ -6,10 +6,7 @@
         {
             Unknown,
             Title,
-            Town,
-            Map,
-            Battle,
-            End,
+            MergeScene,
         }
 
         public enum MouseEvent

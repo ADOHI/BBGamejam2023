@@ -29,10 +29,11 @@ public class Zara : MonoBehaviour
     {
         transform.position = _startPoint.transform.position;
 
-        for (int i = 0; i < health; i++)
-        {
-            ((UI_InGameScene)Managers.UI.SceneUI).AddZaraHealth();
-        }
+        //for (int i = 0; i < health; i++)
+        //{
+        //    ((UI_InGameScene)Managers.UI.SceneUI).AddZaraHealth();
+        //}
+        ((UI_InGameScene)Managers.UI.SceneUI).SetZaraHealth(health);
     }
 
     public void SetData(GameObject startPoint, GameObject endPoint)
@@ -62,9 +63,9 @@ public class Zara : MonoBehaviour
             (Managers.UI.SceneUI as UI_InGameScene).DamageZaraHealth();
             health--;
 
-            if(health ==0)
+            if(health == 0)
             {
-                Debug.Log("GameOver");
+                Managers.Game.GameOver();
             }
         }
     }

@@ -1,12 +1,17 @@
-﻿namespace RabbitResurrection
+﻿using UnityEngine;
+
+namespace RabbitResurrection
 {
     public class GameManager
     {
-        public float RabbitTimeScale = 1.0f;
+        public bool IsGameOver = false;
 
         public void GameOver()
         {
-            RabbitTimeScale = 0.0f;
+            IsGameOver = true;
+            Time.timeScale = 0.0f;
+
+            Managers.UI.ShowPopupUI<UI_GameOver>();
         }
     }
 }
