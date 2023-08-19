@@ -4,6 +4,7 @@ using BBGamejam.Global.Particles;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using DG.Tweening.Core.Easing;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -18,9 +19,8 @@ namespace BBGamejam.Global.Mode
     {
         private float slowModeProgress;
         private float easedSlowModeProgress;
-        private MeshRenderer playerCharacterRenderer;
+        [ShowInInspector] private MeshRenderer playerCharacterRenderer;
         private float slowModeDuration;
-        public GameObjectReference playerCharacterObject;
         public bool isSlowMode;
         public float fadeInOutTime = 0.5f;
         public float slowModeTimeScale = 0.1f;
@@ -35,7 +35,7 @@ namespace BBGamejam.Global.Mode
 
         private void Start()
         {
-            playerCharacterRenderer = IngameManager.Instance.turtle.Value.GetComponentInChildren<MeshRenderer>();
+            playerCharacterRenderer = IngameManager.Instance.rabbit.Value.GetComponentInChildren<MeshRenderer>();
         }
 
         private void Update()
