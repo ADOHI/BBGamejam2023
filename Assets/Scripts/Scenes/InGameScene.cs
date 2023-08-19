@@ -24,6 +24,7 @@ namespace RabbitResurrection
         public Vector3 startPosition;
         public Vector3 endPosition;
         public bool isSpawnAutomatically;
+        public float cameraDistance;
         public Vector3 cineTargetOffset;
         private void Awake()
         {
@@ -58,7 +59,7 @@ namespace RabbitResurrection
             Managers.UI.ShowSceneUI<UI_InGameScene>();
             Zara.SetData(StartPoint, EndPoint);
             EnemyManager.SetData(Zara.gameObject);
-            CineTarget.SetData(rabbit, Zara, CineCamera, cineTargetOffset);
+            CineTarget.SetData(rabbit, Zara, CineCamera, cineTargetOffset, cameraDistance);
             CineCamera.Follow = CineTarget.gameObject.transform;
             rabbitReference.Value = rabbit.gameObject;
             zaraReference.Value = Zara.gameObject;
