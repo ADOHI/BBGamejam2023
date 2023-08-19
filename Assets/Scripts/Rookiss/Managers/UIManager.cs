@@ -8,7 +8,7 @@ namespace RabbitResurrection
         int _order = 10;
 
         Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
-        UI_Scene _sceneUI = null;
+        public UI_Scene SceneUI = null;
 
         public GameObject Root
         {
@@ -62,7 +62,7 @@ namespace RabbitResurrection
             GameObject go = Managers.Resource.Instantiate($"Prefabs/UI/Scene/{name}");
 
             T scene = go.GetOrAddComponent<T>();
-            _sceneUI = scene;
+            SceneUI = scene;
 
             go.transform.SetParent(Root.transform);
 
@@ -123,7 +123,7 @@ namespace RabbitResurrection
         public void Clear()
         {
             CloseAllPopupUI();
-            _sceneUI = null;
+            SceneUI = null;
         }
     }
 }

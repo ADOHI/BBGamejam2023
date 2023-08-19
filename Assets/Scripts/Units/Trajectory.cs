@@ -46,9 +46,7 @@ namespace RabbitResurrection
 
         public void UpdateDots(Vector3 rabbitPosition, Vector3 forceApplied, float drag)
         {
-            Debug.Log(rabbitPosition);
             dotsParent.transform.position = rabbitPosition;
-            Debug.Log(dotsParent.transform.position);
 
             float timeStamp = dotSpacing;
 
