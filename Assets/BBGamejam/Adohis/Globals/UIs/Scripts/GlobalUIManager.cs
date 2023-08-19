@@ -16,8 +16,8 @@ namespace BBGamejam.Global
             White
         }
 
-        private Image blackFadeImage;
-        private Image whiteFadeImage;
+        public Image blackFadeImage;
+        public Image whiteFadeImage;
 
         public void FadeIn(float duration, FadeImageType type, Ease ease = Ease.Linear)
         {
