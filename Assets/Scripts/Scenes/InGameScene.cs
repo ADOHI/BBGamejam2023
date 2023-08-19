@@ -1,4 +1,5 @@
 using Cinemachine;
+using UnityAtoms.BaseAtoms;
 using UnityEngine;
 
 namespace RabbitResurrection
@@ -13,7 +14,9 @@ namespace RabbitResurrection
         public CinemachineVirtualCamera CineCamera;
         public CineTarget CineTarget;
 
-        private void Start()
+        public GameObjectReference rabbitReference;
+        public GameObjectReference zaraReference;
+        private void Awake()
         {
             Init();
         }
@@ -44,6 +47,9 @@ namespace RabbitResurrection
 
             CineTarget.SetData(rabbit, Zara, CineCamera);
             CineCamera.Follow = CineTarget.gameObject.transform;
+
+            rabbitReference.Value = rabbit.gameObject;
+            zaraReference.Value = Zara.gameObject;
         }
 
         public override void Clear()
