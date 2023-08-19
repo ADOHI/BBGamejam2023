@@ -1,4 +1,5 @@
 using Pixelplacement;
+using RabbitResurrection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityAtoms.BaseAtoms;
@@ -25,7 +26,8 @@ namespace BBGamejam.Global.Ingame
 
         private void UpdateProgress()
         {
-            progress = Mathf.Clamp01(turtle.Value.transform.position.x / goalXPos);
+            var zara = (Managers.Scene.CurrentScene as InGameScene).Zara;
+            progress = zara.CalculateProgress();
         }
     }
 

@@ -13,7 +13,7 @@ public class Zara : MonoBehaviour
     public GameObject Seat;
     public GameObject AirPocket;
 
-    private Coroutine swimRoutine;
+    public float progress;
 
     private void Start()
     {
@@ -24,6 +24,7 @@ public class Zara : MonoBehaviour
     {
         Move();
     }
+
     private void Init()
     {
         transform.position = _startPoint.transform.position;
@@ -32,11 +33,6 @@ public class Zara : MonoBehaviour
         {
             ((UI_InGameScene)Managers.UI.SceneUI).AddZaraHealth();
         }
-
-/*        if(_endPoint)
-        {
-            swimRoutine = StartCoroutine(StartSwim());
-        }*/
     }
 
     public void SetData(GameObject startPoint, GameObject endPoint)
@@ -52,24 +48,13 @@ public class Zara : MonoBehaviour
         transform.position += direction.normalized * _speed * Time.deltaTime;
     }
 
-    /*    public IEnumerator StartSwim()
-        {
-            while (Vector3.Distance(transform.position, _endPoint.transform.position) >= 1.0f)
-            {
-                Vector3 direction = _endPoint.transform.position - transform.position;
-                //transform.Translate(direction.normalized * _speed * Time.deltaTime * Managers.Game.RabbitTimeScale);
-                transform.Translate(direction.normalized * _speed * Time.deltaTime);
-                //transform.position = Vector3.MoveTowards(transform.position, _endPoint.transform.position, _speed * Time.deltaTime * Managers.Game.RabbitTimeScale);
-                transform.LookAt(_endPoint.transform.position);
-                var position = transform.position;
-                position.z = 0;
-                transform.position = position;
-                yield return new WaitForEndOfFrame();
-            }
+    public float CalculateProgress()
+    {
+        var distanceToGoal = Vector3.Distance(transform.position, _endPoint.transform.position);
+        var wholeDistance = Vector3.Distance(_startPoint.transform.position, _endPoint.transform.position);
+        return Mathf.Clamp01(1f - (distanceToGoal / wholeDistance));
+    }
 
-            yield break;
-        }
-    */
     public void Damaged()
     {
         if (health > 0)
