@@ -18,11 +18,21 @@ namespace BBGamejam.Envirionment.Underwater.Sunshaft
         public float maxDepth;
         public float minScale;
         public float maxScale;
-       
-        
+
+        private void Awake()
+        {
+            InitialSpawn();
+        }
         private void Start()
         {
             SpawnAsync(0f).AttachExternalCancellation(destroyCancellationToken).Forget();
+        }
+
+        private void InitialSpawn()
+        {
+            Spawn(new Vector3(-150f, 0f, 0f));
+            Spawn(new Vector3(-80f, 0f, 0f));
+            Spawn(new Vector3(-10f, 0f, 0f));
         }
 
         private void Spawn(Vector3 initialPosition)
@@ -38,7 +48,7 @@ namespace BBGamejam.Envirionment.Underwater.Sunshaft
 
             spawnedSunshaft.transform.SetParent(transform);
             spawnedSunshaft.transform.position = initialPosition + new Vector3(xOffset, interporatedYPos, depth);
-            spawnedSunshaft.transform.localScale = Vector3.one * scale;
+            spawnedSunshaft.transform.localScale = new Vector3(1f, scale, 1f);
             spawnedSunshaft.gameObject.SetActive(true);
         }
 

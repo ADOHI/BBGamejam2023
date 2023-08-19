@@ -1824,7 +1824,14 @@ MonoBehaviour:
   pressKeyInterval: 1
   twinkleCount: 3
   twinkleInterval: 0.3
-  showRabbitUI: 3
+  waitCameraInterval: 2
+  showRabbitUI: 5
+  titleSfx: {fileID: 8300000, guid: 60585548ca6806d40a3b9f00a0959e82, type: 3}
+  pressSfx: {fileID: 8300000, guid: 82b9bf472a4bf5344b26cd864f049653, type: 3}
+  explosionSfx: {fileID: 8300000, guid: a36ea9509cf51e24b8ac3eba9613d5ea, type: 3}
+  waterSplashSfx: {fileID: 8300000, guid: 8980271a9751c9448aa05d737217e3ce, type: 3}
+  waveBgm: {fileID: 8300000, guid: cd82f3d83d11ae643b189958e54e862f, type: 3}
+  titleBgm: {fileID: 8300000, guid: c0237b2bd16b65b41847a57e80f3f67e, type: 3}
 --- !u!114 &1544471736
 MonoBehaviour:
   m_ObjectHideFlags: 0

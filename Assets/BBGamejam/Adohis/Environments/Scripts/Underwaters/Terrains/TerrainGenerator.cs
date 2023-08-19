@@ -26,9 +26,22 @@ namespace BBGamejam.Envirionment.Underwater.Terrain
         public TerrainSpawnConfig middleConfig;
         public TerrainSpawnConfig farConfig;
 
+        private void Awake()
+        {
+            InitialSpawn();
+        }
+
         private void Start()
         {
             SpawnAsync(nearConfig, 10f).Forget();
+        }
+
+        private void InitialSpawn()
+        {
+            SpawnNearBackground(new Vector3(-90f + Random.Range(-5f, 5f), 0f, 0f));
+            SpawnNearBackground(new Vector3(-60f + Random.Range(-5f, 5f), 0f, 0f));
+            SpawnNearBackground(new Vector3(-30f + Random.Range(-5f, 5f), 0f, 0f));
+            SpawnNearBackground(new Vector3(0f + Random.Range(-5f, 5f), 0f, 0f));
         }
 
         private async UniTask SpawnAsync(TerrainSpawnConfig config, float previousXPos)

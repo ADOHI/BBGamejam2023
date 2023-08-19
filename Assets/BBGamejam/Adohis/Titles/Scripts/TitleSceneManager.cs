@@ -31,7 +31,15 @@ namespace BBGamejam.Title
         public float pressKeyInterval = 1f;
         public int twinkleCount = 3;
         public float twinkleInterval = 0.3f;
+        public float waitCameraInterval = 2f;
         public float showRabbitUI = 3f;
+        [Header("Sounds")]
+        public AudioClip titleSfx;
+        public AudioClip pressSfx;
+        public AudioClip explosionSfx;
+        public AudioClip waterSplashSfx;
+        public AudioClip waveBgm;
+        public AudioClip titleBgm;
         private void Awake()
         {
             GlobalUIManager.Instance.whiteFadeImage.color = Color.white;
@@ -56,6 +64,8 @@ namespace BBGamejam.Title
 
         private async UniTask StartTitleSceneAsync()
         {
+            SoundManager.PlayMusic(waveBgm, 1, true, 3f);
+
             await GlobalUIManager.Instance.FadeInAsync(3f, GlobalUIManager.FadeImageType.White);
             
             await UniTask.Delay((int)(showTitleInterval * 1000f));
@@ -70,9 +80,11 @@ namespace BBGamejam.Title
 
             await TwinklePressSpaceText();
 
+            SoundManager.PlayMusic(titleBgm, 1, true, 1f);
+
             titleObject.SetActive(false);
 
-            await UniTask.Delay(1000);
+            await UniTask.Delay((int)(1000f * waitCameraInterval));
 
             await firstCamera.transform.DORotate(new Vector3(-20f, -24f, 0f), 5f);
 
@@ -85,6 +97,7 @@ namespace BBGamejam.Title
             firstCamera.enabled = false;
 
             Time.timeScale = 0.0f;
+            SoundManager.PlayFx(explosionSfx);
 
             await UniTask.Delay((int)(showRabbitUI * 1000f), true);
 
@@ -95,8 +108,10 @@ namespace BBGamejam.Title
             secondCamera.enabled = false;
 
             Time.timeScale = 1.0f;
+            SoundManager.PlayFx(waterSplashSfx);
 
             await UniTask.Delay(500);
+            SoundManager.StopAll(1f);
 
             await SceneManager.LoadSceneAsync(1);
         }
@@ -104,6 +119,7 @@ namespace BBGamejam.Title
         private void ShowTitle()
         {
             titleObject.SetActive(true);
+            SoundManager.PlayFx(titleSfx);
         }
 
         private void ShowPressSpaceText()
@@ -113,6 +129,8 @@ namespace BBGamejam.Title
 
         private async UniTask TwinklePressSpaceText()
         {
+            SoundManager.PlayFx(pressSfx);
+
             for (int i = 0; i < twinkleCount; i++)
             {
                 pressSpaceKeyText.SetActive(false);
