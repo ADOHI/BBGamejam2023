@@ -14,6 +14,8 @@ namespace RabbitResurrection
         private Vector2 _startPosition, _endPosition;
         private Vector3 _forceVector;
 
+        private Animator animator => Rabbit.animator;
+
         private void Start()
         {
             Init();
@@ -30,6 +32,8 @@ namespace RabbitResurrection
             switch (mouseEvent)
             {
                 case Define.MouseEvent.Press:
+                    animator.SetBool("isIdle", false);
+                    animator.SetBool("isReady", true);
                     if (isFirstPressed)
                     {
                         isFirstPressed = false;

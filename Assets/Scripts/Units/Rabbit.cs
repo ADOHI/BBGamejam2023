@@ -15,8 +15,14 @@ namespace RabbitResurrection
         private bool isCharging = false;
         [SerializeField] private bool isSeat = false;
         public SkinnedMeshRenderer targetRenderer;
+        [HideInInspector] public Animator animator;
 
         private Coroutine AirChargeRoutine = null;
+
+        private void Awake()
+        {
+            animator = GetComponentInChildren<Animator>();
+        }
 
         private void Start()
         {
@@ -50,6 +56,8 @@ namespace RabbitResurrection
 
         public void Push(Vector3 force)
         {
+            animator.SetBool("isReady", false);
+            animator.SetBool("isJump", true);
             if (air > 0)
             {
                 _rigidbody.isKinematic = false;
@@ -61,17 +69,19 @@ namespace RabbitResurrection
                     isSeat = false;
                 }
 
-                gameObject.transform.rotation = Quaternion.identity;
-                var rotation = gameObject.transform.rotation.eulerAngles;
-                if (force.x > 0)
-                {
-                    rotation.y = 90f;
-                }
-                else
-                {
-                    rotation.y = -90f;
-                }
-                gameObject.transform.rotation = Quaternion.Euler(rotation);
+                /*                gameObject.transform.rotation = Quaternion.identity;
+                                var rotation = gameObject.transform.rotation.eulerAngles;
+                                if (force.x > 0)
+                                {
+                                    rotation.y = 90f;
+                                }
+                                else
+                                {
+                                    rotation.y = -90f;
+                                }
+                                gameObject.transform.rotation = Quaternion.Euler(rotation);*/
+
+                transform.forward = force.normalized;
 
                 _rigidbody.AddForce(_rigidbody.mass * force, ForceMode.Impulse);
                 UseAir();
@@ -109,6 +119,7 @@ namespace RabbitResurrection
         private void Seat()
         {
             Debug.Log("Seat");
+            animator.SetBool("isIdle", true);
             isSeat = true;
 
             Zara zara = (Managers.Scene.CurrentScene as InGameScene).Zara;
