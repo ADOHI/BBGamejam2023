@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/FB/Scenes/GameScene.unity
     guid: b33b2254de464e24f8d520f7b10dce20
+  - enabled: 1
+    path: Assets/Scenes/MergeScene.unity
+    guid: f2d2e15ed7366774c888a0758601b534
   m_configObjects: {}

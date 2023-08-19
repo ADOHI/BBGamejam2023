@@ -48,6 +48,8 @@ namespace RabbitResurrection
         public void Kill()
         {
             StopCoroutine(swimRoutine);
+            (Managers.UI.SceneUI as UI_InGameScene).AddKillCount();
+            Managers.Game.KillCount++;
             Managers.Resource.Destroy(gameObject);
         }
     }
