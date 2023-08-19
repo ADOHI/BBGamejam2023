@@ -38,8 +38,6 @@ namespace RabbitResurrection
                         trajectory.Show();
 
                         _startPosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-
-                        Managers.Game.RabbitTimeScale = 0.1f;
                     }
                     else
                     {
@@ -68,8 +66,6 @@ namespace RabbitResurrection
                         }
 
                         trajectory.Hide();
-
-                        Managers.Game.RabbitTimeScale = 1.0f;
                     }
                     break;
                 default:

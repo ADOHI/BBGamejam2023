@@ -25,7 +25,6 @@ namespace RabbitResurrection
         {
             if (!isSeat)
             {
-                transform.LookAt(Camera.main.transform);
                 var position = transform.position;
                 position.z = 0f;
                 transform.position = position;
@@ -54,11 +53,24 @@ namespace RabbitResurrection
                 _rigidbody.isKinematic = false;
                 if (isSeat)
                 {
+                    Debug.Log("Push when seat");
                     gameObject.transform.SetParent(null);
-                    gameObject.transform.rotation = Quaternion.identity;
-
+                    
                     isSeat = false;
                 }
+
+                gameObject.transform.rotation = Quaternion.identity;
+                var rotation = gameObject.transform.rotation.eulerAngles;
+                if (force.x > 0)
+                {
+                    rotation.y = 90f;
+                }
+                else
+                {
+                    rotation.y = -90f;
+                }
+                gameObject.transform.rotation = Quaternion.Euler(rotation);
+
                 _rigidbody.AddForce(_rigidbody.mass * force, ForceMode.Impulse);
                 UseAir();
 
@@ -94,6 +106,7 @@ namespace RabbitResurrection
 
         private void Seat()
         {
+            Debug.Log("Seat");
             isSeat = true;
 
             Zara zara = (Managers.Scene.CurrentScene as InGameScene).Zara;
@@ -106,7 +119,6 @@ namespace RabbitResurrection
 
         private void OnTriggerEnter(Collider other)
         {
-
             if (other.tag == "Enemy")
             {
                 if (_rigidbody.velocity.magnitude > 0.1f)
@@ -117,6 +129,7 @@ namespace RabbitResurrection
 
             if (other.tag == "AirPocket")
             {
+                Debug.Log("AirPocket Enter");
                 if (isSeat == false)
                 {
                     Seat();
