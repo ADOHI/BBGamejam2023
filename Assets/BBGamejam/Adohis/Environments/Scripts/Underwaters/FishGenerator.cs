@@ -26,13 +26,13 @@ namespace BBGamejam.Envirionment.Underwater
 
         private void Start()
         {
-            SpawnAsync(IngameManager.Instance.turtle.transform.position.x).Forget();
+            SpawnAsync(IngameManager.Instance.turtle.Value.transform.position.x).Forget();
         }
 
         public async UniTask SpawnAsync(float currentSpawnPos)
         {
-            await UniTask.WaitUntil(() => IngameManager.Instance.turtle.transform.position.x > currentSpawnPos);
-            Spawn(IngameManager.Instance.turtle.transform.position, spawnXOffset);
+            await UniTask.WaitUntil(() => IngameManager.Instance.turtle.Value.transform.position.x > currentSpawnPos);
+            Spawn(IngameManager.Instance.turtle.Value.transform.position, spawnXOffset);
             var nextSpawnXPos = currentSpawnPos + Random.Range(minSpawnInterval, maxSpawnInterval);
             SpawnAsync(nextSpawnXPos).Forget();
         }

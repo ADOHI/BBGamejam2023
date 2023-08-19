@@ -44,9 +44,9 @@ namespace BBGamejam.Envirionment.Underwater.Kelp
         {
             var nextPos = previousXPos + Random.Range(minSpawnXPosInterval, maxSpawnXPosInterval);
 
-            await UniTask.WaitUntil(() => IngameManager.Instance.turtle.transform.position.x > nextPos);
+            await UniTask.WaitUntil(() => IngameManager.Instance.turtle.Value.transform.position.x > nextPos);
 
-            Spawn(IngameManager.Instance.turtle.transform.position);
+            Spawn(IngameManager.Instance.turtle.Value.transform.position);
 
             SpawnAsync(nextPos).Forget();
         }

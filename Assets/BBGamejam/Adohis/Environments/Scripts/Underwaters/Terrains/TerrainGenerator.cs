@@ -35,9 +35,9 @@ namespace BBGamejam.Envirionment.Underwater.Terrain
         {
             var nextPos = previousXPos + Random.Range(config.minSpawnXPosInterval, config.maxSpawnXPosInterval);
 
-            await UniTask.WaitUntil(() => IngameManager.Instance.turtle.transform.position.x > nextPos);
+            await UniTask.WaitUntil(() => IngameManager.Instance.turtle.Value.transform.position.x > nextPos);
 
-            SpawnNearBackground(IngameManager.Instance.turtle.transform.position);
+            SpawnNearBackground(IngameManager.Instance.turtle.Value.transform.position);
 
             SpawnAsync(config, nextPos).Forget();
         }
@@ -62,7 +62,7 @@ namespace BBGamejam.Envirionment.Underwater.Terrain
         [Button]
         private void Spawn(TerrainDistanceType type)
         {
-            var initialPosition = IngameManager.Instance.turtle.transform.position;
+            var initialPosition = IngameManager.Instance.turtle.Value.transform.position;
             switch (type)
             {
                 case TerrainDistanceType.Near:

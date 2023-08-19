@@ -63,7 +63,7 @@ namespace DistantLands
 
         private void DestroyObject()
         {
-            if (transform.position.x < IngameManager.Instance.turtle.transform.position.x - destroyDistance)
+            if (transform.position.x < IngameManager.Instance.turtle.Value.transform.position.x - destroyDistance)
             {
                 Destroy(gameObject);
             }

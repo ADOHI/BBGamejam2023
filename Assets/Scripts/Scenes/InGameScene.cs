@@ -1,4 +1,5 @@
 using Cinemachine;
+using Unity.VisualScripting;
 using UnityAtoms.BaseAtoms;
 using UnityEngine;
 
@@ -31,6 +32,7 @@ namespace RabbitResurrection
             StartPoint.transform.position = new Vector3(0, -10f, 0);
             EndPoint.transform.position = new Vector3(100, -50f, 0);
             CineCamera = Managers.Resource.Instantiate<CinemachineVirtualCamera>("Prefabs/@Virtual Camera");
+            Camera.main.GetOrAddComponent<CinemachineBrain>();
             EnemyManager = Managers.Resource.Instantiate<EnemyManager>("Prefabs/@EnemyManager");
             CineTarget = Managers.Resource.Instantiate<CineTarget>("Prefabs/CineTarget");
 
