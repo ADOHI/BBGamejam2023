@@ -2,13 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityAtoms.BaseAtoms;
+using BBGamejam.Global.Ingame;
 
 namespace DistantLands
 {
 	public class GlobalFlock : MonoBehaviour
 	{
-        [Header("GlobalObjects")]
-        public GameObjectReference turtleObject;
         [Header("DestroySetting")]
         public float destroyDistance;
         [Header("FishSettings")]
@@ -64,7 +63,7 @@ namespace DistantLands
 
         private void DestroyObject()
         {
-            if (transform.position.x < turtleObject.Value.transform.position.x - destroyDistance)
+            if (transform.position.x < IngameManager.Instance.turtle.transform.position.x - destroyDistance)
             {
                 Destroy(gameObject);
             }

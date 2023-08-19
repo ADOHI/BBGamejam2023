@@ -1,4 +1,5 @@
 using AtmosphericHeightFog;
+using BBGamejam.Global.Ingame;
 using System.Collections;
 using System.Collections.Generic;
 using UnityAtoms.BaseAtoms;
@@ -14,15 +15,10 @@ namespace BBGamejam.Envirionment.Underwater
         public float minFogColorDuo;
         public float maxFogColorDuo;
 
-        [Header("ValuesForSet")]
-        public FloatReference depthOfWater;
-        public FloatReference maxDepthOfWater;
-        public FloatReference gameProgress;
-
         void Update()
         {
             SetFogPosition();
-            SetWaterConfig(depthOfWater);
+            SetWaterConfig();
         }
 
         private void SetFogPosition()
@@ -30,9 +26,9 @@ namespace BBGamejam.Envirionment.Underwater
             waterFog.transform.position = characterObject.Value.transform.position;
         }
 
-        private void SetWaterConfig(float depthOfWater)
+        private void SetWaterConfig()
         {
-            waterFog.fogColorDuo = Mathf.Clamp(gameProgress.Value, minFogColorDuo, maxFogColorDuo);
+            waterFog.fogColorDuo = Mathf.Clamp(IngameManager.Instance.progress, minFogColorDuo, maxFogColorDuo);
         }
     }
 }
