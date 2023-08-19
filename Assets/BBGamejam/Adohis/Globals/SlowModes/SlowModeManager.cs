@@ -1,4 +1,5 @@
 using AtmosphericHeightFog;
+using BBGamejam.Global.Ingame;
 using BBGamejam.Global.Particles;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -34,7 +35,7 @@ namespace BBGamejam.Global.Mode
 
         private void Start()
         {
-            playerCharacterRenderer = playerCharacterObject.Value.GetComponentInChildren<MeshRenderer>();
+            playerCharacterRenderer = IngameManager.Instance.turtle.Value.GetComponentInChildren<MeshRenderer>();
         }
 
         private void Update()
@@ -45,7 +46,7 @@ namespace BBGamejam.Global.Mode
             }
             else if(Input.GetMouseButtonUp(0))
             {
-                BubbleGenerator.Instance.Explosion(playerCharacterObject.Value.transform.position);
+                BubbleGenerator.Instance.Explosion(IngameManager.Instance.turtle.Value.transform.position);
                 isSlowMode = false;
             }
 

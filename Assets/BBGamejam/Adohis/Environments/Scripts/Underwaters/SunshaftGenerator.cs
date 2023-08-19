@@ -22,7 +22,7 @@ namespace BBGamejam.Envirionment.Underwater.Sunshaft
         
         private void Start()
         {
-            SpawnAsync(0f).Forget();
+            SpawnAsync(0f).AttachExternalCancellation(destroyCancellationToken).Forget();
         }
 
         private void Spawn(Vector3 initialPosition)

@@ -9,7 +9,6 @@ namespace BBGamejam.Envirionment.Underwater
 {
     public class UnderwaterContoller : MonoBehaviour
     {
-        public GameObjectReference characterObject;
         [Header("AssignFog")]
         public HeightFogGlobal waterFog;
         public float minFogColorDuo;
@@ -23,7 +22,7 @@ namespace BBGamejam.Envirionment.Underwater
 
         private void SetFogPosition()
         {
-            waterFog.transform.position = characterObject.Value.transform.position;
+            waterFog.transform.position = IngameManager.Instance.turtle.Value.transform.position;
         }
 
         private void SetWaterConfig()

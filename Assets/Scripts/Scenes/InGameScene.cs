@@ -7,6 +7,8 @@ namespace RabbitResurrection
 {
     public class InGameScene : BaseScene
     {
+
+
         public GameObject StartPoint;
         public GameObject EndPoint;
         public Rabbit rabbit;
@@ -17,6 +19,12 @@ namespace RabbitResurrection
 
         public GameObjectReference rabbitReference;
         public GameObjectReference zaraReference;
+
+        [Header("Setting")]
+        public Vector3 startPosition;
+        public Vector3 endPosition;
+        public bool isSpawnAutomatically;
+
         private void Awake()
         {
             Init();
@@ -26,32 +34,34 @@ namespace RabbitResurrection
         {
             base.Init();
 
-            StartPoint = new GameObject("@StartPoint");
-            EndPoint = new GameObject("@EndPoint");
-
-            StartPoint.transform.position = new Vector3(0, -10f, 0);
-            EndPoint.transform.position = new Vector3(100, -50f, 0);
-            CineCamera = Managers.Resource.Instantiate<CinemachineVirtualCamera>("Prefabs/@Virtual Camera");
-            Camera.main.GetOrAddComponent<CinemachineBrain>();
-            EnemyManager = Managers.Resource.Instantiate<EnemyManager>("Prefabs/@EnemyManager");
-            CineTarget = Managers.Resource.Instantiate<CineTarget>("Prefabs/CineTarget");
-
-            Managers.UI.ShowSceneUI<UI_InGameScene>();
-            Zara = Managers.Resource.Instantiate<Zara>("Prefabs/Zara");
-            Zara.SetData(StartPoint, EndPoint);
-
-            rabbit = Managers.Resource.Instantiate<Rabbit>("Prefabs/Rabbit");
-
-            for (int i = 0; i < 5; i++)
+            if (isSpawnAutomatically)
             {
-                EnemyManager.SpawnEnemy(Zara.gameObject);
+                StartPoint = new GameObject("@StartPoint");
+                EndPoint = new GameObject("@EndPoint");
+                StartPoint.transform.position = startPosition;
+                EndPoint.transform.position = endPosition;
+                CineCamera = Managers.Resource.Instantiate<CinemachineVirtualCamera>("Prefabs/@Virtual Camera");
+                Camera.main.GetOrAddComponent<CinemachineBrain>();
+                EnemyManager = Managers.Resource.Instantiate<EnemyManager>("Prefabs/@EnemyManager");
+                CineTarget = Managers.Resource.Instantiate<CineTarget>("Prefabs/CineTarget");
+                //Managers.UI.ShowSceneUI<UI_InGameScene>();
+                Zara = Managers.Resource.Instantiate<Zara>("Prefabs/Zara");
+                //Zara.SetData(StartPoint, EndPoint);
+                rabbit = Managers.Resource.Instantiate<Rabbit>("Prefabs/Rabbit");
+
             }
+            else
+            {
+
+            }
+            Managers.UI.ShowSceneUI<UI_InGameScene>();
+            Zara.SetData(StartPoint, EndPoint);
 
             CineTarget.SetData(rabbit, Zara, CineCamera);
             CineCamera.Follow = CineTarget.gameObject.transform;
-
             rabbitReference.Value = rabbit.gameObject;
             zaraReference.Value = Zara.gameObject;
+
         }
 
         public override void Clear()

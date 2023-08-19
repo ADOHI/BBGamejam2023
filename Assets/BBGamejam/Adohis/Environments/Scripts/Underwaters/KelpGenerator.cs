@@ -21,7 +21,7 @@ namespace BBGamejam.Envirionment.Underwater.Kelp
         public float maxScale;
         private void Start()
         {
-            SpawnAsync(0f).Forget();
+            SpawnAsync(0f).AttachExternalCancellation(destroyCancellationToken).Forget();
         }
 
         private void Spawn(Vector3 initialPosition)

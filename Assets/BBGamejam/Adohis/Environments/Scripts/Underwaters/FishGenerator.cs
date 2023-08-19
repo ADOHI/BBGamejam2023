@@ -26,7 +26,7 @@ namespace BBGamejam.Envirionment.Underwater
 
         private void Start()
         {
-            SpawnAsync(IngameManager.Instance.turtle.Value.transform.position.x).Forget();
+            SpawnAsync(IngameManager.Instance.turtle.Value.transform.position.x).AttachExternalCancellation(destroyCancellationToken).Forget();
         }
 
         public async UniTask SpawnAsync(float currentSpawnPos)

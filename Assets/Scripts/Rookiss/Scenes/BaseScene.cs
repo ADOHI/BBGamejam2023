@@ -10,7 +10,7 @@ namespace RabbitResurrection
     {
         public Define.Scene SceneType { get; protected set; } = Define.Scene.Unknown;
 
-        private void Start()
+        private void awake()
         {
             Init();
         }

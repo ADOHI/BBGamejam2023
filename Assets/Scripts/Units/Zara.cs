@@ -20,6 +20,10 @@ public class Zara : MonoBehaviour
         Init();
     }
 
+    private void Update()
+    {
+        Move();
+    }
     private void Init()
     {
         transform.position = _startPoint.transform.position;
@@ -29,10 +33,10 @@ public class Zara : MonoBehaviour
             ((UI_InGameScene)Managers.UI.SceneUI).AddZaraHealth();
         }
 
-        if(_endPoint)
+/*        if(_endPoint)
         {
             swimRoutine = StartCoroutine(StartSwim());
-        }
+        }*/
     }
 
     public void SetData(GameObject startPoint, GameObject endPoint)
@@ -41,23 +45,31 @@ public class Zara : MonoBehaviour
         _endPoint = endPoint;
     }
 
-    public IEnumerator StartSwim()
+    private void Move()
     {
-        while (Vector3.Distance(transform.position, _endPoint.transform.position) >= 1.0f)
-        {
-            Vector3 direction = _endPoint.transform.position - transform.position;
-            transform.Translate(direction.normalized * _speed * Time.deltaTime * Managers.Game.RabbitTimeScale);
-            //transform.position = Vector3.MoveTowards(transform.position, _endPoint.transform.position, _speed * Time.deltaTime * Managers.Game.RabbitTimeScale);
-            transform.LookAt(_endPoint.transform.position);
-            var position = transform.position;
-            position.z = 0;
-            transform.position = position;
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        yield break;
+        var direction = _endPoint.transform.position - transform.position;
+        transform.forward = direction;
+        transform.position += direction.normalized * _speed * Time.deltaTime;
     }
 
+    /*    public IEnumerator StartSwim()
+        {
+            while (Vector3.Distance(transform.position, _endPoint.transform.position) >= 1.0f)
+            {
+                Vector3 direction = _endPoint.transform.position - transform.position;
+                //transform.Translate(direction.normalized * _speed * Time.deltaTime * Managers.Game.RabbitTimeScale);
+                transform.Translate(direction.normalized * _speed * Time.deltaTime);
+                //transform.position = Vector3.MoveTowards(transform.position, _endPoint.transform.position, _speed * Time.deltaTime * Managers.Game.RabbitTimeScale);
+                transform.LookAt(_endPoint.transform.position);
+                var position = transform.position;
+                position.z = 0;
+                transform.position = position;
+                yield return new WaitForEndOfFrame();
+            }
+
+            yield break;
+        }
+    */
     public void Damaged()
     {
         if (health > 0)
