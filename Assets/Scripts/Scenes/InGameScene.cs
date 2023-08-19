@@ -43,6 +43,7 @@ namespace RabbitResurrection
                 CineCamera = Managers.Resource.Instantiate<CinemachineVirtualCamera>("Prefabs/@Virtual Camera");
                 Camera.main.GetOrAddComponent<CinemachineBrain>();
                 EnemyManager = Managers.Resource.Instantiate<EnemyManager>("Prefabs/@EnemyManager");
+                
                 CineTarget = Managers.Resource.Instantiate<CineTarget>("Prefabs/CineTarget");
                 //Managers.UI.ShowSceneUI<UI_InGameScene>();
                 Zara = Managers.Resource.Instantiate<Zara>("Prefabs/Zara");
@@ -56,7 +57,7 @@ namespace RabbitResurrection
             }
             Managers.UI.ShowSceneUI<UI_InGameScene>();
             Zara.SetData(StartPoint, EndPoint);
-
+            EnemyManager.SetData(Zara.gameObject);
             CineTarget.SetData(rabbit, Zara, CineCamera);
             CineCamera.Follow = CineTarget.gameObject.transform;
             rabbitReference.Value = rabbit.gameObject;
