@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace RabbitResurrection
         [SerializeField] private bool isImediately;
         private bool isCharging = false;
         [SerializeField] private bool isSeat = false;
+        public SkinnedMeshRenderer targetRenderer;
 
         private Coroutine AirChargeRoutine = null;
 

@@ -19,7 +19,7 @@ namespace BBGamejam.Global.Mode
     {
         private float slowModeProgress;
         private float easedSlowModeProgress;
-        [ShowInInspector] private MeshRenderer playerCharacterRenderer;
+        [ShowInInspector] private SkinnedMeshRenderer playerCharacterRenderer;
         private float slowModeDuration;
         public bool isSlowMode;
         public float fadeInOutTime = 0.5f;
@@ -35,7 +35,9 @@ namespace BBGamejam.Global.Mode
 
         private void Start()
         {
-            playerCharacterRenderer = IngameManager.Instance.rabbit.Value.GetComponentInChildren<MeshRenderer>();
+            
+            //playerCharacterRenderer = IngameManager.Instance.rabbit.Value.GetComponentInChildren<SkinnedMeshRenderer>();
+            playerCharacterRenderer = IngameManager.Instance.rabbit.Value.GetComponentInParent<RabbitResurrection.Rabbit>().targetRenderer;
         }
 
         private void Update()
