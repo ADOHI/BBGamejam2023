@@ -12,7 +12,7 @@ namespace RabbitResurrection
         [SerializeField] float initialDistance;
 
         public Vector3 targetOffset;
-        public void SetData(Rabbit rabbit, Zara zara, CinemachineVirtualCamera cine, Vector3 offset, float initialCameraDistance)
+        public void SetData(Rabbit rabbit, Zara zara, CinemachineVirtualCamera cine, Vector3 offset, float initialCameraDistance, Vector3 eulerAngle)
         {
             this.rabbit = rabbit;
             this.zara = zara;
@@ -23,7 +23,7 @@ namespace RabbitResurrection
             initialDistance = Vector3.Distance(zeroWorld, oneWorld);
 
             transposer = cine.GetCinemachineComponent<CinemachineFramingTransposer>();
-
+            cine.transform.eulerAngles = eulerAngle;
             SetBodyDistance(initialCameraDistance);
         }
 
