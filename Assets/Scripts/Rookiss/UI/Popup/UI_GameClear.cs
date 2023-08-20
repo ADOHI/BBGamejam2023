@@ -74,14 +74,14 @@ namespace RabbitResurrection
             {
                 Managers.Game.Enroll(text, score);
                 UpdateBoard();
-                button_Submit.interactable = false;
+                Managers.Scene.LoadScene(Define.Scene.TitleScene);
             });
 
             button_Submit.onClick.AddListener(() =>
             {
                 Managers.Game.Enroll(inputField.text, score);
                 UpdateBoard();
-                button_Submit.interactable = false;
+                Managers.Scene.LoadScene(Define.Scene.TitleScene);
             });
         }
 
