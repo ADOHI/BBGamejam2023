@@ -5,24 +5,31 @@ namespace RabbitResurrection
 {
     public class CineTarget : MonoBehaviour
     {
+        private CinemachineFramingTransposer transposer;
         [SerializeField] Rabbit rabbit;
         [SerializeField] Zara zara;
         [SerializeField] CinemachineVirtualCamera cine;
         [SerializeField] float initialDistance;
 
-        public void SetData(Rabbit rabbit, Zara zara, CinemachineVirtualCamera cine)
+        public Vector3 targetOffset;
+        public void SetData(Rabbit rabbit, Zara zara, CinemachineVirtualCamera cine, Vector3 offset, float initialCameraDistance, Vector3 eulerAngle)
         {
             this.rabbit = rabbit;
             this.zara = zara;
             this.cine = cine;
+            this.targetOffset = offset;
             Vector3 zeroWorld = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
             Vector3 oneWorld = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
             initialDistance = Vector3.Distance(zeroWorld, oneWorld);
+
+            transposer = cine.GetCinemachineComponent<CinemachineFramingTransposer>();
+            cine.transform.eulerAngles = eulerAngle;
+            SetBodyDistance(initialCameraDistance);
         }
 
         private void FixedUpdate()
         {
-            transform.position = (rabbit.transform.position + zara.AirPocket.transform.position) / 2;
+            transform.position = (rabbit.transform.position + zara.AirPocket.transform.position) * 0.5f + targetOffset;
             var position = transform.position;
             position.z = 0f;
             transform.position = position;
@@ -39,6 +46,11 @@ namespace RabbitResurrection
             //        cine.m_Lens.FocusDistance -= 1f;
             //    }
             //}
+        }
+
+        public void SetBodyDistance(float distance)
+        {
+            transposer.m_CameraDistance = distance;
         }
 
         private bool IsRabbitOutView()

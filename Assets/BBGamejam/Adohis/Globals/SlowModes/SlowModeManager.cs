@@ -34,9 +34,16 @@ namespace BBGamejam.Global.Mode
         public Color emissionColor;
         public float emissionHDR;
 
+        [Header("ZoomIn")]
+        public float zoomInMultiply = 0.75f;
+
+        [Header("Sfx")]
+        public AudioClip slowModeSfx;
+        public AudioClip jumpSfx;
+        public AudioClip landingSfx;
+
         private void Start()
-        {
-            
+        {         
             //playerCharacterRenderer = IngameManager.Instance.rabbit.Value.GetComponentInChildren<SkinnedMeshRenderer>();
             playerCharacterRenderer = IngameManager.Instance.rabbit.Value.GetComponentInParent<RabbitResurrection.Rabbit>().targetRenderer;
         }
@@ -46,11 +53,16 @@ namespace BBGamejam.Global.Mode
             if (Input.GetMouseButtonDown(0))
             {
                 isSlowMode = true;
+                SoundManager.PlayFx(slowModeSfx, 1, true);
             }
             else if(Input.GetMouseButtonUp(0))
             {
                 BubbleGenerator.Instance.Explosion(IngameManager.Instance.turtle.Value.transform.position);
                 isSlowMode = false;
+                SoundManager.StopAllFx();
+
+                SoundManager.PlayFx(jumpSfx, 1);
+
             }
 
             UpdateProgress();
@@ -73,12 +85,16 @@ namespace BBGamejam.Global.Mode
                 slowModeDuration = 0f;
                 slowModeProgress = Mathf.Clamp01(slowModeProgress - Time.unscaledDeltaTime / fadeInOutTime);
                 easedSlowModeProgress = DOVirtual.EasedValue(0f, 1f, slowModeProgress, fadeOutEase);
+
             }
         }
 
         private void UpdateSlowMode(float slowModeProgress)        
         {
+            
+            
             underwaterFog.skyboxFogIntensity = 1f - slowModeProgress;
+            
             if (isSlowMode)
             {
                 Time.timeScale = Mathf.Clamp((1f - slowModeProgress), slowModeTimeScale, 1f);
@@ -95,6 +111,17 @@ namespace BBGamejam.Global.Mode
             playerCharacterRenderer
                 .material
                 .SetColor("_EmissionColor", Color.Lerp(Color.black, emissionColor * emissionHDR, twinkleProgress));
+        }
+
+        private void ZoomIn(float zoomInMultiply)
+        {
+            var ingameScene =  (Managers.Scene.CurrentScene as InGameScene);
+            ingameScene.CineTarget.SetBodyDistance(ingameScene.cameraDistance * zoomInMultiply);
+        }
+
+        public void PlayLandingSound()
+        {
+            SoundManager.PlayFx(landingSfx, 1);
         }
     }
 

@@ -17,7 +17,14 @@ namespace BBGamejam.Global.Ingame
         public float progress;
         [Header("Score")]
         public float score;
+        [Header("Sounds")]
+        public AudioClip ingameBgm;
 
+        private void Start()
+        {
+            SoundManager.StopAll();
+            SoundManager.PlayMusic(ingameBgm, 1, true, 1f);
+        }
 
         private void Update()
         {

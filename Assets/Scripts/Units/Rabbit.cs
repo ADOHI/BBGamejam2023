@@ -1,3 +1,4 @@
+using BBGamejam.Global.Mode;
 using Sirenix.OdinInspector;
 using System.Collections;
 using Unity.VisualScripting;
@@ -124,6 +125,7 @@ namespace RabbitResurrection
             animator.SetBool("isIdle", true);
             isSeat = true;
 
+            SlowModeManager.Instance.PlayLandingSound();
             //Zara zara = (Managers.Scene.CurrentScene as InGameScene).Zara;
             //gameObject.transform.SetParent(zara.transform);
             //gameObject.transform.localPosition = zara.Seat.transform.localPosition;

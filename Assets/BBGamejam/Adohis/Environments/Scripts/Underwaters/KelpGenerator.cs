@@ -19,9 +19,24 @@ namespace BBGamejam.Envirionment.Underwater.Kelp
         public float maxDepth;
         public float minScale;
         public float maxScale;
+
+        private void Awake()
+        {
+            InitialSpawn();
+        }
+
         private void Start()
         {
             SpawnAsync(0f).AttachExternalCancellation(destroyCancellationToken).Forget();
+        }
+
+        private void InitialSpawn()
+        {
+            Spawn(new Vector3(-120f + Random.Range(-5f, 5f), 0f, 0f));
+            Spawn(new Vector3(-90f + Random.Range(-5f, 5f), 0f, 0f));
+            Spawn(new Vector3(-60f + Random.Range(-5f, 5f), 0f, 0f));
+            Spawn(new Vector3(-30f + Random.Range(-5f, 5f), 0f, 0f));
+            Spawn(new Vector3(-5f + Random.Range(-5f, 5f), 0f, 0f));
         }
 
         private void Spawn(Vector3 initialPosition)

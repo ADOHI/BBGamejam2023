@@ -24,10 +24,21 @@ namespace BBGamejam.Envirionment.Underwater
         public int maxNumFishSize;
         public float spawnXOffset;
 
+        private void Awake()
+        {
+            InitialSpawn();
+        }
+
         private void Start()
         {
             SpawnAsync(IngameManager.Instance.turtle.Value.transform.position.x).AttachExternalCancellation(destroyCancellationToken).Forget();
         }
+
+        private void InitialSpawn()
+        {
+            Spawn(Vector3.zero, -10f);
+        }
+
 
         public async UniTask SpawnAsync(float currentSpawnPos)
         {
