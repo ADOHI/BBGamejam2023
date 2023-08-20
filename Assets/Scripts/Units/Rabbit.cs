@@ -1,4 +1,5 @@
 using BBGamejam.Global.Mode;
+using BBGamejam.Global.Particles;
 using Sirenix.OdinInspector;
 using System.Collections;
 using Unity.VisualScripting;
@@ -140,6 +141,7 @@ namespace RabbitResurrection
             {
                 if (_rigidbody.velocity.magnitude > 0.1f)
                 {
+                    BubbleGenerator.Instance.Hit(other.transform.position);
                     other.GetComponent<Enemy>().Kill();
                 }
             }
