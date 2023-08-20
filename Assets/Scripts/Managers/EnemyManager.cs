@@ -63,7 +63,7 @@ namespace RabbitResurrection
 
         private IEnumerator EnemySpawnRoutine()
         {
-            while (accumulatedTime < 240f)
+            while (IngameManager.Instance.progress < 1f)
             {
                 yield return new WaitForSeconds(1f);
                 SpawnEnemyByCase();
@@ -74,11 +74,11 @@ namespace RabbitResurrection
 
         private void SpawnEnemyByCase()
         {
-            if (accumulatedTime < 20f) // 동해 1
+            if (IngameManager.Instance.progress < (1f/12f)) // 동해 1
             {
                 SpawnEnemy(0);
             }
-            else if (accumulatedTime < 40f) // 동해 2
+            else if (IngameManager.Instance.progress < (2f / 12f)) // 동해 2
             {
                 SpawnEnemy(0);
                 
@@ -92,7 +92,7 @@ namespace RabbitResurrection
                     isTwice = true;
                 }
             }
-            else if (accumulatedTime < 60f) // 동해 3
+            else if (IngameManager.Instance.progress < (3f / 12f)) // 동해 3
             {
                 SpawnEnemy(1);
 
@@ -106,7 +106,7 @@ namespace RabbitResurrection
                     isTwice = true;
                 }
             }
-            else if (accumulatedTime < 80f) // 동해 4
+            else if (IngameManager.Instance.progress < (4f / 12f)) // 동해 4
             {
                 SpawnEnemy(0);
                 SpawnEnemy(1);
@@ -121,14 +121,14 @@ namespace RabbitResurrection
                     isTwice = true;
                 }
             }
-            else if (accumulatedTime < 100f) // 동해 4
+            else if (IngameManager.Instance.progress < (5f / 12f)) // 동해 4
             {
                 SpawnEnemy(0);
                 SpawnEnemy(0);
                 SpawnEnemy(1);
                 SpawnEnemy(1);
             }
-            else if (accumulatedTime < 120f) // 동해 5
+            else if (IngameManager.Instance.progress < (6f / 12f)) // 동해 5
             {
                 SpawnEnemy(0);
                 SpawnEnemy(0);
@@ -146,7 +146,7 @@ namespace RabbitResurrection
                     isTwice = true;
                 }
             }
-            else if (accumulatedTime < 140f) // 상부 심해 1
+            else if (IngameManager.Instance.progress < (7f / 12f)) // 상부 심해 1
             {
                 SpawnEnemy(2);
                 SpawnEnemy(2);
@@ -162,21 +162,21 @@ namespace RabbitResurrection
                     isTwice = true;
                 }
             }
-            else if (accumulatedTime < 160f) // 상부 심해 2
+            else if (IngameManager.Instance.progress < (8f / 12f)) // 상부 심해 2
             {
                 SpawnEnemy(2);
                 SpawnEnemy(2);
                 SpawnEnemy(2);
                 SpawnEnemy(2);
             }
-            else if (accumulatedTime < 180f) // 상부 심해 3
+            else if (IngameManager.Instance.progress < (9f / 12f)) // 상부 심해 3
             {
                 SpawnEnemy(3);
                 SpawnEnemy(3);
                 SpawnEnemy(3);
                 SpawnEnemy(3);
             }
-            else if (accumulatedTime < 200f) // 상부 심해 4
+            else if (IngameManager.Instance.progress < (10f / 12f)) // 상부 심해 4
             {
                 SpawnEnemy(2);
                 SpawnEnemy(2);
@@ -188,7 +188,7 @@ namespace RabbitResurrection
                 SpawnEnemy(3);
                 SpawnEnemy(3);
             }
-            else if (accumulatedTime < 220f) // 상부 심해 5
+            else if (IngameManager.Instance.progress < (11f / 12f)) // 상부 심해 5
             {
                 SpawnEnemy(2);
                 SpawnEnemy(2);
@@ -212,7 +212,7 @@ namespace RabbitResurrection
                 }
 
             }
-            else if (accumulatedTime < 240f) // 상부 심해 6
+            else // if (IngameManager.Instance.progress < (12f / 12f)) // 상부 심해 6
             {
                 SpawnEnemy(2);
                 SpawnEnemy(2);
@@ -226,10 +226,10 @@ namespace RabbitResurrection
                 SpawnEnemy(3);
                 SpawnEnemy(3);
             }
-            else
-            {
-                Debug.Log("Game 끝");
-            }
+            //else
+            //{
+            //    Debug.Log("Game 끝");
+            //}
         }
     }
 }

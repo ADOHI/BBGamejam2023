@@ -7,6 +7,7 @@
             Unknown,
             Title,
             MergeScene,
+            EndScene,
         }
 
         public enum MouseEvent
