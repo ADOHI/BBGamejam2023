@@ -5,7 +5,7 @@
         public enum Scene
         {
             Unknown,
-            Title,
+            TitleScene,
             MergeScene,
             EndScene,
         }

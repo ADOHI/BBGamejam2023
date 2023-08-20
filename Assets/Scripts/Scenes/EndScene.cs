@@ -11,10 +11,12 @@ namespace RabbitResurrection
         {
             base.Init();
 
-            Managers.UI.ShowPopupUI<UI_GameClear>();
+            Managers.UI.ShowPopupUI<UI_Ending>();
+            Managers.Sound.Play("Sounds/Ending", Define.Sound.BGM);
         }
         public override void Clear()
         {
+            Managers.Sound.Clear();
         }
     }
 }

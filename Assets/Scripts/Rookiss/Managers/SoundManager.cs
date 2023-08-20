@@ -52,11 +52,12 @@ namespace RabbitResurrection
 
             if (type == Define.Sound.BGM)
             {
-                AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
+                AudioSource audioSource = _audioSources[(int)Define.Sound.BGM];
 
                 if (audioSource.isPlaying) { audioSource.Stop(); }
                 audioSource.pitch = pitch;
                 audioSource.clip = audioClip;
+                audioSource.loop = true;
                 audioSource.Play();
             }
             else
