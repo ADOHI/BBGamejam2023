@@ -1,4 +1,6 @@
 using BBGamejam.Global.Mode;
+using BBGamejam.Global.Particles;
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using System.Collections;
 using Unity.VisualScripting;
@@ -140,7 +142,8 @@ namespace RabbitResurrection
             {
                 if (_rigidbody.velocity.magnitude > 0.1f)
                 {
-                    other.GetComponent<Enemy>().Kill();
+                    BubbleGenerator.Instance.Hit(other.transform.position);
+                    AddTimeJitter(other).Forget();
                 }
             }
 
@@ -177,6 +180,15 @@ namespace RabbitResurrection
                     isCharging = true;
                 }
             }
+        }
+
+
+        private async UniTask AddTimeJitter(Collider other)
+        {
+            Time.timeScale = 0.1f;
+            await UniTask.Delay(100);
+            other.GetComponent<Enemy>().Kill();
+            Time.timeScale = 1f;
         }
 
         private void OnTriggerStay(Collider other)

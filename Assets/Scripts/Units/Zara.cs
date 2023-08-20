@@ -3,9 +3,14 @@ using UniRx;
 using System.Collections;
 using RabbitResurrection;
 using TMPro;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using BBGamejam.Global.Mode;
 
 public class Zara : MonoBehaviour
 {
+    private Animator animator;
+    private SkinnedMeshRenderer rend;
     [SerializeField] private GameObject _startPoint;
     [SerializeField] private GameObject _endPoint;
     [SerializeField] private float _speed = 5f;
@@ -14,6 +19,12 @@ public class Zara : MonoBehaviour
     public GameObject AirPocket;
 
     public float progress;
+
+    private void Awake()
+    {
+        rend = GetComponentInChildren<SkinnedMeshRenderer>();
+        animator = GetComponentInChildren<Animator>();    
+    }
 
     private void Start()
     {
@@ -60,6 +71,9 @@ public class Zara : MonoBehaviour
     {
         if (health > 0)
         {
+            animator.SetTrigger("isHit");
+            SlowModeManager.Instance.PlayLandingSound();
+            HitAsync().Forget();
             (Managers.UI.SceneUI as UI_InGameScene).DamageZaraHealth();
             health--;
 
@@ -68,5 +82,11 @@ public class Zara : MonoBehaviour
                 Managers.Game.GameOver();
             }
         }
+    }
+
+    public async UniTask HitAsync()
+    {
+        await rend.material.DOColor(Color.red, "_EmissionColor", 0.2f);
+        await rend.material.DOColor(Color.white, "_EmissionColor", 0.2f);
     }
 }

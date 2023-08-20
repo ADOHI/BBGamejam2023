@@ -61,7 +61,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
@@ -82,6 +82,7 @@ MonoBehaviour:
   isImediately: 1
   isSeat: 0
   targetRenderer: {fileID: 5260456408296570131}
+  animator: {fileID: 0}
 --- !u!114 &8169627199773322055
 MonoBehaviour:
   m_ObjectHideFlags: 0
