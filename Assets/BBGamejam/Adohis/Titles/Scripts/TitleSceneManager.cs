@@ -113,7 +113,7 @@ namespace BBGamejam.Title
             await UniTask.Delay(500);
             SoundManager.StopAll(1f);
 
-            await SceneManager.LoadSceneAsync(1);
+            await SceneManager.LoadSceneAsync(2);
         }
 
         private void ShowTitle()

@@ -36,7 +36,7 @@ namespace BBGamejam.Global.Ingame
             var zara = (Managers.Scene.CurrentScene as InGameScene).Zara;
             progress = zara.CalculateProgress();
 
-            if(progress >= 1f)
+            if(progress >= 0.999f)
             {
                 Managers.Game.GameClear();
             }
