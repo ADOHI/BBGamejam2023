@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RabbitResurrection
 {
@@ -30,7 +31,9 @@ namespace RabbitResurrection
 
         public void GameClear()
         {
-            Managers.Scene.LoadScene(Define.Scene.EndScene);
+            //Managers.Scene.LoadScene(Define.Scene.EndScene);
+            Managers.Clear();
+            SceneManager.LoadScene(3);
         }
 
         public void Enroll(string name, int score)

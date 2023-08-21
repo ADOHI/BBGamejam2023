@@ -63,7 +63,7 @@ namespace BBGamejam.Envirionment.Underwater.Kelp
 
             Spawn(IngameManager.Instance.turtle.Value.transform.position);
 
-            SpawnAsync(nextPos).Forget();
+            SpawnAsync(nextPos).AttachExternalCancellation(destroyCancellationToken).Forget();
         }
 
     }

@@ -45,7 +45,7 @@ namespace BBGamejam.Envirionment.Underwater
             await UniTask.WaitUntil(() => IngameManager.Instance.turtle.Value.transform.position.x > currentSpawnPos);
             Spawn(IngameManager.Instance.turtle.Value.transform.position, spawnXOffset);
             var nextSpawnXPos = currentSpawnPos + Random.Range(minSpawnInterval, maxSpawnInterval);
-            SpawnAsync(nextSpawnXPos).Forget();
+            SpawnAsync(nextSpawnXPos).AttachExternalCancellation(destroyCancellationToken).Forget();
         }
 
         public void Spawn(Vector3 turtlePosition, float xOffset)

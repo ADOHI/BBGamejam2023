@@ -38,6 +38,7 @@ namespace BBGamejam.Global.Ingame
 
             if(progress >= 0.999f)
             {
+                SoundManager.StopAll();
                 Managers.Game.GameClear();
             }
         }

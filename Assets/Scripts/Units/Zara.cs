@@ -73,7 +73,7 @@ public class Zara : MonoBehaviour
         {
             animator.SetTrigger("isHit");
             SlowModeManager.Instance.PlayLandingSound();
-            HitAsync().Forget();
+            HitAsync().AttachExternalCancellation(this.destroyCancellationToken).Forget();
             (Managers.UI.SceneUI as UI_InGameScene).DamageZaraHealth();
             health--;
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace RabbitResurrection
@@ -23,8 +24,13 @@ namespace RabbitResurrection
             button_Retry = Get<Button>((int)Buttons.Button_Retry);
             button_ToTitle = Get<Button>((int)Buttons.Button_ToTitle);
 
-            button_Retry.onClick.AddListener(() => Managers.Scene.LoadScene(Define.Scene.MergeScene));
-            button_ToTitle.onClick.AddListener(() => Debug.Log("To Title"));
+            button_Retry.onClick.AddListener(() => Managers.Scene.LoadScene(Define.Scene.MergeScene_Environment));
+            button_ToTitle.onClick.AddListener(() =>
+            {
+                Managers.Clear();
+                SceneManager.LoadScene(1);
+                //Managers.Scene.LoadScene(Define.Scene.TitleScene);
+                });
         }
     }
 }

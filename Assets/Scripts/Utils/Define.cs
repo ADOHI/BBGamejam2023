@@ -5,8 +5,9 @@
         public enum Scene
         {
             Unknown,
+            OpenScene,
             TitleScene,
-            MergeScene,
+            MergeScene_Environment,
             EndScene,
         }
 

@@ -13,7 +13,7 @@ namespace RabbitResurrection
         public void LoadScene(Define.Scene type)
         {
             Managers.Clear();
-            SceneManager.LoadScene(GetSceneName(type));
+            SceneManager.LoadScene(2);
         }
 
         private string GetSceneName(Define.Scene type)

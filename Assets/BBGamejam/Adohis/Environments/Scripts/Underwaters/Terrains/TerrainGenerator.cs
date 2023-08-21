@@ -33,7 +33,7 @@ namespace BBGamejam.Envirionment.Underwater.Terrain
 
         private void Start()
         {
-            SpawnAsync(nearConfig, 10f).Forget();
+            SpawnAsync(nearConfig, 10f).AttachExternalCancellation(destroyCancellationToken).Forget();
         }
 
         private void InitialSpawn()
@@ -52,7 +52,7 @@ namespace BBGamejam.Envirionment.Underwater.Terrain
 
             SpawnNearBackground(IngameManager.Instance.turtle.Value.transform.position);
 
-            SpawnAsync(config, nextPos).Forget();
+            SpawnAsync(config, nextPos).AttachExternalCancellation(destroyCancellationToken).Forget();
         }
 
         private void SpawnNearBackground(Vector3 initialPosition)

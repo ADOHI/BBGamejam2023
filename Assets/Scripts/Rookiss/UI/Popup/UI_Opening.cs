@@ -37,6 +37,9 @@ namespace RabbitResurrection
             }
             else
             {
+                //Managers.Scene.LoadScene(Define.Scene.TitleScene);
+                //Managers.Scene.LoadScene(Define.Scene.TitleScene);
+                Managers.Clear();
                 SceneManager.LoadScene(1);
             }
         }
