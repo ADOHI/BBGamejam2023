@@ -7,7 +7,7 @@ namespace RabbitResurrection
     public class Swipe : MonoBehaviour
     {
         [SerializeField] protected Trajectory trajectory;
-        [SerializeField] protected float maxForce;
+        [SerializeField] public float maxForce;
         //[SerializeField] protected float maxForce;
         [SerializeField] private Rabbit Rabbit;
         private bool isFirstPressed = true;

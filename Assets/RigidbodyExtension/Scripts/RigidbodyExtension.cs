@@ -52,7 +52,8 @@ namespace Dweiss
         {
             var ret = new Vector3[stepCount];
 
-            var addedV = (addedForce / mass) * Time.fixedDeltaTime;
+            //var addedV = (addedForce / mass) * Time.fixedDeltaTime;
+            var addedV = (addedForce / mass) * 0.02f;
             var v = velocity + addedSpeed + addedV;
             var a = acc;
 
@@ -68,7 +69,8 @@ namespace Dweiss
 
         private static Vector3[] CalculateNewPos(Vector3 x, Vector3 v, Vector3 a, float drag, float deltaTimeCount)
         {
-            var dt = Time.fixedDeltaTime;
+            //var dt = Time.fixedDeltaTime;
+            var dt = 0.02f;
             var aDt = a * dt;
             var dragDt = 1 - drag * dt;
             dragDt = dragDt < 0 ? 0 : dragDt;

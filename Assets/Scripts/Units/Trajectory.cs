@@ -56,6 +56,8 @@ namespace RabbitResurrection
             dotsParent.transform.position = Camera.main.WorldToScreenPoint(rabbitPosition);*/
             dotsParent.transform.position = Vector3.zero;
 
+            var timeBetweenStep = (int)(5 / Time.deltaTime);
+
             var positions = rb.CalculateMovement(dotsNumber, 5, forceApplied);
 
             for (int i = 0; i < _dotsList.Length; i++)

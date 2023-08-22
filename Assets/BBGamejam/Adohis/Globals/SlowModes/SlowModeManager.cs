@@ -99,10 +99,12 @@ namespace BBGamejam.Global.Mode
             if (isSlowMode)
             {
                 Time.timeScale = Mathf.Clamp((1f - slowModeProgress), slowModeTimeScale, 1f);
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
             }
             else
             {
                 Time.timeScale = 1f;
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
             }
             TwinkleCharacter(1f - Mathf.Abs((slowModeDuration % twinkleInterval) / twinkleInterval * 2f - 1f));
         }

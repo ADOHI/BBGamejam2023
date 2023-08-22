@@ -27,12 +27,13 @@ namespace RabbitResurrection
             SetBodyDistance(initialCameraDistance);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            transform.position = (rabbit.transform.position + zara.AirPocket.transform.position) * 0.5f + targetOffset;
+            var toPosition = (rabbit.transform.position + zara.AirPocket.transform.position) * 0.5f + targetOffset;
+/*            transform.position = (rabbit.transform.position + zara.AirPocket.transform.position) * 0.5f + targetOffset;
             var position = transform.position;
-            position.z = 0f;
-            transform.position = position;
+            position.z = 0f;*/
+            transform.position = Vector3.Lerp(transform.position, toPosition, Time.fixedDeltaTime * 10f);
 
             //if (IsRabbitOutView() || IsZaraOutView())
             //{

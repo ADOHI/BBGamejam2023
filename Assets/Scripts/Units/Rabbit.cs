@@ -16,7 +16,7 @@ namespace RabbitResurrection
     {
         private Rigidbody _rigidbody;
         //[SerializeField] private int health;
-        [SerializeField] private int airMax;
+        [SerializeField] public int airMax;
         private int air;
         [SerializeField] private bool isImediately;
         private bool isCharging = false;
@@ -154,6 +154,36 @@ namespace RabbitResurrection
             }
         }
 
+        public void AddMaxAir(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                var airUIImage = Instantiate(airUIImagePrefab);
+                airUIImages.Add(airUIImage);
+                airUIImage.transform.SetParent(airUIParent.transform);
+                airUIImage.gameObject.SetActive(true);
+            }
+
+            this.airMax += amount;
+        }
+
+        public void SubMaxAir(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                var airUIImage = Instantiate(airUIImagePrefab);
+                airUIImages.Add(airUIImage);
+                airUIImage.transform.SetParent(airUIParent.transform);
+                airUIImage.gameObject.SetActive(true);
+
+                var index = airUIImages.Count - 1;
+                var ui = airUIImages[index];
+                airUIImages.RemoveAt(index);
+            }
+
+            this.airMax -= amount;
+        }
+
         private void SetAirUI(int air, int maxAir)
         {
             for (int i = 0; i < maxAir; i++)
@@ -237,7 +267,7 @@ namespace RabbitResurrection
         {
             if (other.tag == "Enemy")
             {
-                if (_rigidbody.velocity.magnitude > 0.1f)
+                if (!isSeat && _rigidbody.velocity.magnitude > 0.1f)
                 {
                     BubbleGenerator.Instance.Hit(other.transform.position);
                     AddTimeJitterAndKill(other).Forget();
@@ -266,6 +296,7 @@ namespace RabbitResurrection
         private async UniTask AddTimeJitterAndKill(Collider other)
         {
             Time.timeScale = 0.1f;
+            Time.fixedDeltaTime = 0.02F * Time.timeScale;
             await UniTask.Delay(100);
             if (other != null)
             {
@@ -274,6 +305,7 @@ namespace RabbitResurrection
                 other.GetComponent<Enemy>().Kill();
             }
             Time.timeScale = 1f;
+            Time.fixedDeltaTime = 0.02F * Time.timeScale;
         }
 
         private void OnTriggerStay(Collider other)

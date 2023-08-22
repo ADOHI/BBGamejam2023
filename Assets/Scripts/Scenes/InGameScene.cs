@@ -43,7 +43,11 @@ namespace RabbitResurrection
                 StartPoint.transform.position = startPosition;
                 EndPoint.transform.position = endPosition;
                 CineCamera = Managers.Resource.Instantiate<CinemachineVirtualCamera>("Prefabs/@Virtual Camera");
-                Camera.main.GetOrAddComponent<CinemachineBrain>();
+                var brain = Camera.main.GetOrAddComponent<CinemachineBrain>();
+
+                brain.m_BlendUpdateMethod = CinemachineBrain.BrainUpdateMethod.FixedUpdate;
+                brain.m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
+
                 EnemyManager = Managers.Resource.Instantiate<EnemyManager>("Prefabs/@EnemyManager");
                 
                 CineTarget = Managers.Resource.Instantiate<CineTarget>("Prefabs/CineTarget");

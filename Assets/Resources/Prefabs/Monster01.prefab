@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1382485591674300628}
   - component: {fileID: 6346169694717048256}
   - component: {fileID: 600547006422860236}
+  - component: {fileID: 2397524322951670111}
   m_Layer: 0
   m_Name: Monster01
   m_TagString: Enemy
@@ -47,7 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
-  _speed: 7
+  _speed: 1200
+  swimType: 0
+  explosionDistance: 10
+  explosionRadius: 20
+  explosionDuration: 1
+  explosionPower: 30
 --- !u!135 &600547006422860236
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -69,6 +75,33 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &2397524322951670111
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3348998275477886971}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 3
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
 --- !u!1001 &34839009873118234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95,7 +128,7 @@ PrefabInstance:
     - target: {fileID: 5068769543808566304, guid: e745072d1a5e16b4e924bd0220a96e05,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9063079
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5068769543808566304, guid: e745072d1a5e16b4e924bd0220a96e05,
         type: 3}
@@ -105,7 +138,7 @@ PrefabInstance:
     - target: {fileID: 5068769543808566304, guid: e745072d1a5e16b4e924bd0220a96e05,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.42261827
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5068769543808566304, guid: e745072d1a5e16b4e924bd0220a96e05,
         type: 3}
@@ -120,7 +153,7 @@ PrefabInstance:
     - target: {fileID: 5068769543808566304, guid: e745072d1a5e16b4e924bd0220a96e05,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5068769543808566304, guid: e745072d1a5e16b4e924bd0220a96e05,
         type: 3}

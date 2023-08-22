@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - DR_GRADIENT_ON
+  - DR_OUTLINE_ON
   - DR_RIM_ON
   - _CELPRIMARYMODE_SINGLE
   - _DETAILMAPBLENDINGMODE_MULTIPLY
@@ -24,8 +25,7 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses:
-  - SRPDEFAULTUNLIT
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -108,7 +108,7 @@ Material:
     - _FlatSmoothness: 0.362
     - _FlatSpecularEdgeSmoothness: 0.897
     - _FlatSpecularEnabled: 1
-    - _FlatSpecularSize: 0.268
+    - _FlatSpecularSize: 0.739
     - _FlatSpecularSmoothness: 0.5
     - _Flatness: 0.786
     - _FlatnessExtra: 0.931
@@ -131,9 +131,9 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OutlineDepthOffset: 0
-    - _OutlineEnabled: 0
+    - _OutlineEnabled: 1
     - _OutlineScale: 1
-    - _OutlineWidth: 0
+    - _OutlineWidth: 0.3
     - _OverrideLightmapDir: 0
     - _OverrideShadows: 1
     - _OverrideShadowsEnabled: 1
@@ -143,7 +143,7 @@ Material:
     - _SecondaryColor: 1
     - _SecondaryColorEnabled: 1
     - _SelfShadingSize: 0.523
-    - _SelfShadingSizeExtra: 0.38
+    - _SelfShadingSizeExtra: 0.734
     - _ShadowEdgeSize: 0.112
     - _ShadowEdgeSizeExtra: 0.068
     - _ShadowEdgeSmoothness: 0.071
@@ -175,9 +175,9 @@ Material:
     - _ColorShadow: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _ColorShadows: {r: 0.5471698, g: 0.37346402, b: 0.26584196, a: 1}
     - _DetailMapColor: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 2.149533, g: 0.72263527, b: 0.3176981, a: 1}
-    - _FlatRimColor: {r: 1, g: 0.86185205, b: 0.83647794, a: 1}
-    - _FlatSpecularColor: {r: 0.6698113, g: 0.5023585, b: 0.52495956, a: 1}
+    - _EmissionColor: {r: 0.028301895, g: 0.028301895, b: 0.028301895, a: 1}
+    - _FlatRimColor: {r: 4, g: 3.4474082, b: 3.3459117, a: 1}
+    - _FlatSpecularColor: {r: 6.498019, g: 6.498019, b: 6.498019, a: 1}
     - _LightmapDirection: {r: 0, g: 1, b: 0, a: 0}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _UnityShadowColor: {r: 0.81960785, g: 0.3888465, b: 0.12941176, a: 1}
