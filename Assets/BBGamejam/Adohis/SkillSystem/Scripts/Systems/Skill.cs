@@ -10,7 +10,7 @@ namespace BBGamejam.Ingame.Skill
         public int maxLevel;
         public string skillName;
         public string skillDescription;
-        public SkillManager.SkillType SkillType;
+        //public SkillManager.SkillType SkillType;
 
         public virtual void LevelUp()
         {

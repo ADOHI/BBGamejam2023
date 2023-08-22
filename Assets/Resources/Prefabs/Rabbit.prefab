@@ -237,6 +237,7 @@ MonoBehaviour:
   isSeat: 0
   targetRenderer: {fileID: 5260456408296570131}
   animator: {fileID: 0}
+  attackRange: 1
   uiTarget: {fileID: 1259492319491377029}
   airUIOffset: {x: 0, y: 50, z: 0}
   airUIParent: {fileID: 993012495050814747}
@@ -256,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trajectory: {fileID: 6094175844338849398}
-  maxForce: 80
+  maxForce: 50
   Rabbit: {fileID: 3694895161132832259}
   maxSwipeDistance: 0.2
   scaler: {fileID: 1032267513777457231}

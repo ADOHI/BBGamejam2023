@@ -269,6 +269,7 @@ MonoBehaviour:
   _startPoint: {fileID: 0}
   _endPoint: {fileID: 0}
   _speed: 5
+  maxHealth: 10
   health: 10
   Seat: {fileID: 569720597033709756}
   AirPocket: {fileID: 3377201947210433011}

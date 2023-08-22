@@ -132,6 +132,11 @@ namespace RabbitResurrection
                     }
                     break;
             }
+            if (swimRoutine!= null)
+            {
+                StopCoroutine(swimRoutine);
+            }
+
             Managers.Resource.Destroy(gameObject);
             yield break;
         }

@@ -148,9 +148,9 @@ namespace RabbitResurrection
             }
             else if (IngameManager.Instance.progress < (7f / 12f)) // 상부 심해 1
             {
-                SpawnEnemy(2);
-                SpawnEnemy(2);
-                SpawnEnemy(2);
+                SpawnEnemy(0);
+                SpawnEnemy(1);
+                SpawnEnemy(1);
 
                 if (isTwice)
                 {
@@ -164,40 +164,40 @@ namespace RabbitResurrection
             }
             else if (IngameManager.Instance.progress < (8f / 12f)) // 상부 심해 2
             {
-                SpawnEnemy(2);
-                SpawnEnemy(2);
+                SpawnEnemy(0);
+                SpawnEnemy(1);
                 SpawnEnemy(2);
                 SpawnEnemy(2);
             }
             else if (IngameManager.Instance.progress < (9f / 12f)) // 상부 심해 3
             {
-                SpawnEnemy(3);
-                SpawnEnemy(3);
-                SpawnEnemy(3);
+                SpawnEnemy(0);
+                SpawnEnemy(1);
+                SpawnEnemy(2);
                 SpawnEnemy(3);
             }
             else if (IngameManager.Instance.progress < (10f / 12f)) // 상부 심해 4
             {
-                SpawnEnemy(2);
-                SpawnEnemy(2);
-                SpawnEnemy(2);
-                SpawnEnemy(2);
+                SpawnEnemy(0);
+                SpawnEnemy(1);
+                SpawnEnemy(1);
+                SpawnEnemy(1);
 
-                SpawnEnemy(3);
-                SpawnEnemy(3);
+                SpawnEnemy(2);
+                SpawnEnemy(2);
                 SpawnEnemy(3);
                 SpawnEnemy(3);
             }
             else if (IngameManager.Instance.progress < (11f / 12f)) // 상부 심해 5
             {
-                SpawnEnemy(2);
-                SpawnEnemy(2);
-                SpawnEnemy(2);
-                SpawnEnemy(2);
+                SpawnEnemy(0);
+                SpawnEnemy(0);
+                SpawnEnemy(1);
+                SpawnEnemy(1);
 
-                SpawnEnemy(3);
-                SpawnEnemy(3);
-                SpawnEnemy(3);
+                SpawnEnemy(1);
+                SpawnEnemy(2);
+                SpawnEnemy(2);
                 SpawnEnemy(3);
 
                 if (isTwice)
@@ -214,15 +214,15 @@ namespace RabbitResurrection
             }
             else // if (IngameManager.Instance.progress < (12f / 12f)) // 상부 심해 6
             {
-                SpawnEnemy(2);
-                SpawnEnemy(2);
-                SpawnEnemy(2);
-                SpawnEnemy(2);
-                SpawnEnemy(2);
+                SpawnEnemy(0);
+                SpawnEnemy(0);
+                SpawnEnemy(1);
+                SpawnEnemy(1);
+                SpawnEnemy(1);
 
-                SpawnEnemy(3);
-                SpawnEnemy(3);
-                SpawnEnemy(3);
+                SpawnEnemy(2);
+                SpawnEnemy(2);
+                SpawnEnemy(2);
                 SpawnEnemy(3);
                 SpawnEnemy(3);
             }

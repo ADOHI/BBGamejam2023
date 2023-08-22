@@ -15,6 +15,7 @@ namespace RabbitResurrection
     public class Rabbit : MonoBehaviour
     {
         private Rigidbody _rigidbody;
+        private SphereCollider collider;
         //[SerializeField] private int health;
         [SerializeField] public int airMax;
         private int air;
@@ -26,7 +27,9 @@ namespace RabbitResurrection
 
         private Coroutine AirChargeRoutine = null;
         private int seatCount = 0;
-
+        private int dropCount = 0;
+        [Header("AttackSetting")]
+        public float attackRange = 1f;
 
         [Header("UIs")]
         private List<Image> airUIImages = new();
@@ -39,6 +42,8 @@ namespace RabbitResurrection
         private void Awake()
         {
             animator = GetComponentInChildren<Animator>();
+            collider = GetComponent<SphereCollider>();
+            UpdateAttackRange(attackRange);
         }
 
         private void Start()
@@ -61,16 +66,6 @@ namespace RabbitResurrection
             }
         }
 
-        //private void FixedUpdate()
-        //{
-        //    if (!isSeat)
-        //    {
-        //        var position = transform.position;
-        //        position.z = 0f;
-        //        transform.position = position;
-        //    }
-        //}
-
         private void Init()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -87,6 +82,16 @@ namespace RabbitResurrection
 
             //Zara zara = (Managers.Scene.CurrentScene as InGameScene).Zara;
             //gameObject.transform.position = zara.Seat.transform.position;
+        }
+
+        public void UpdateAttackRange(float newRange)
+        {
+            collider.radius = newRange;
+        }
+
+        public void UpgradeAttackRange()
+        {
+            collider.radius += 0.2f;
         }
 
         public void Push(Vector3 force)
@@ -113,7 +118,8 @@ namespace RabbitResurrection
             {
                 if (air == 0)
                 {
-                    (Managers.Scene.CurrentScene as InGameScene).Zara.Damaged();
+                    (Managers.Scene.CurrentScene as InGameScene).Zara.Damaged(++dropCount);
+                    isCharging = false;
                     Seat();
                 }
                 Debug.Log("산소 추진체 부족");

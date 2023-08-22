@@ -1,3 +1,4 @@
+using BBGamejam.Global.Ingame;
 using BBGamejam.Ingame.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,6 +41,11 @@ namespace RabbitResurrection
 
         private void ControlSwipe(Define.MouseEvent mouseEvent)
         {
+            if (IngameManager.Instance.isGamePause)
+            {
+                return;
+            }
+
             switch (mouseEvent)
             {
                 case Define.MouseEvent.Press:
@@ -108,6 +114,10 @@ namespace RabbitResurrection
             }
         }
 
+        public void UpgradeSwipeForce()
+        {
+            maxForce += 1.1f;
+        }
 
     }
 }

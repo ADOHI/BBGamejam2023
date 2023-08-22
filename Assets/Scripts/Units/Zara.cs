@@ -14,7 +14,8 @@ public class Zara : MonoBehaviour
     [SerializeField] private GameObject _startPoint;
     [SerializeField] private GameObject _endPoint;
     [SerializeField] private float _speed = 5f;
-    [SerializeField] private int health;
+    [HideInInspector] public int maxHealth = 10;
+    [HideInInspector] public int health;
     public GameObject Seat;
     public GameObject AirPocket;
 
@@ -27,7 +28,8 @@ public class Zara : MonoBehaviour
     private void Awake()
     {
         rend = GetComponentInChildren<SkinnedMeshRenderer>();
-        animator = GetComponentInChildren<Animator>();    
+        animator = GetComponentInChildren<Animator>();
+        health = maxHealth;
     }
 
     private void Start()
@@ -95,9 +97,32 @@ public class Zara : MonoBehaviour
         }
     }
 
+    public void Damaged(int damage)
+    {
+        if (health > 0)
+        {
+            animator.SetTrigger("isHit");
+            SlowModeManager.Instance.PlayLandingSound();
+            HitAsync().AttachExternalCancellation(this.destroyCancellationToken).Forget();
+            //(Managers.UI.SceneUI as UI_InGameScene).DamageZaraHealth();
+            health -= damage;
+
+            if (health == 0)
+            {
+                Managers.Game.GameOver();
+            }
+        }
+    }
+
     public async UniTask HitAsync()
     {
         await rend.material.DOColor(Color.red, "_EmissionColor", 0.2f);
         await rend.material.DOColor(new Color(2.1495f, 0.7226f, 0.3176f), "_EmissionColor", 0.2f);
+    }
+
+    public void UpgradeHealth()
+    {
+        maxHealth += 2;
+        health = maxHealth;
     }
 }

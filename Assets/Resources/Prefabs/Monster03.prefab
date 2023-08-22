@@ -48,8 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
-  _speed: 1000
+  _speed: 1500
   swimType: 2
+  explosionDistance: 10
+  explosionRadius: 5
+  explosionDuration: 1
+  explosionPower: 1000
 --- !u!135 &600547006422860236
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -1827,6 +1827,7 @@ MonoBehaviour:
   waitCameraInterval: 2
   showRabbitUI: 5
   titleSfx: {fileID: 8300000, guid: 60585548ca6806d40a3b9f00a0959e82, type: 3}
+  dropSfx: {fileID: 8300000, guid: eca218799e9f2f646abae18e3b83bb24, type: 3}
   pressSfx: {fileID: 8300000, guid: 82b9bf472a4bf5344b26cd864f049653, type: 3}
   explosionSfx: {fileID: 8300000, guid: a36ea9509cf51e24b8ac3eba9613d5ea, type: 3}
   waterSplashSfx: {fileID: 8300000, guid: 8980271a9751c9448aa05d737217e3ce, type: 3}

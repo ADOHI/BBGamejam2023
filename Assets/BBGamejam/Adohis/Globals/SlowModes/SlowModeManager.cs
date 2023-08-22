@@ -51,6 +51,11 @@ namespace BBGamejam.Global.Mode
 
         private void Update()
         {
+            if (IngameManager.Instance.isGamePause)
+            {
+                return;
+            }
+
             if (Input.GetMouseButtonDown(0))
             {
                 isSlowMode = true;
@@ -125,6 +130,11 @@ namespace BBGamejam.Global.Mode
         public void PlayLandingSound()
         {
             SoundManager.PlayFx(landingSfx, 1);
+        }
+
+        public void UpgradeSlowMode()
+        {
+            slowModeTimeScale *= 0.8f;
         }
     }
 

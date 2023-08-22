@@ -35,6 +35,7 @@ namespace BBGamejam.Title
         public float showRabbitUI = 3f;
         [Header("Sounds")]
         public AudioClip titleSfx;
+        public AudioClip dropSfx;
         public AudioClip pressSfx;
         public AudioClip explosionSfx;
         public AudioClip waterSplashSfx;
@@ -149,6 +150,7 @@ namespace BBGamejam.Title
             targetRb = target.GetComponent<Rigidbody>();
             targetRb.useGravity = true;
             targetRb.AddForce(Vector3.down * dropForce, ForceMode.Impulse);
+            SoundManager.PlayFx(dropSfx);
         }
     }
 

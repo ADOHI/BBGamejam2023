@@ -17,6 +17,7 @@ namespace BBGamejam.Global.Ingame
         [Header("IngameProgress")]
         public float goalXPos;
         public float progress;
+        public float depthOfWater => (int)(progress * 2077f);
         [Header("Combo")]
         public int currentComboCount;
         public int firstComboThreshold = 5;
@@ -27,6 +28,8 @@ namespace BBGamejam.Global.Ingame
         public AudioClip ingameBgm;
         public AudioClip comboSfxFirst;
         public AudioClip comboSfxSecond;
+        [Header("Input")]
+        public bool isGamePause;
 
         private void Awake()
         {
@@ -97,6 +100,16 @@ namespace BBGamejam.Global.Ingame
             score.Value += calculatedScore;
         }
 
+        public void PauseGame()
+        {
+            isGamePause = true;
+            Time.timeScale = 0f;
+        }
+        public void ResumeGame()
+        {
+            isGamePause = false;
+            Time.timeScale = 1f;
+        }
     }
 
 }
