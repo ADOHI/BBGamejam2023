@@ -20,6 +20,10 @@ public class Zara : MonoBehaviour
 
     public float progress;
 
+    [Header("UI")]
+    public TextMeshProUGUI text;
+    public GameObject uiTransform;
+
     private void Awake()
     {
         rend = GetComponentInChildren<SkinnedMeshRenderer>();
@@ -34,6 +38,7 @@ public class Zara : MonoBehaviour
     private void Update()
     {
         Move();
+        UpdateHealthUI();
     }
 
     private void Init()
@@ -44,13 +49,19 @@ public class Zara : MonoBehaviour
         //{
         //    ((UI_InGameScene)Managers.UI.SceneUI).AddZaraHealth();
         //}
-        ((UI_InGameScene)Managers.UI.SceneUI).SetZaraHealth(health);
+        //((UI_InGameScene)Managers.UI.SceneUI).SetZaraHealth(health);
     }
 
     public void SetData(GameObject startPoint, GameObject endPoint)
     {
         _startPoint = startPoint;
         _endPoint = endPoint;
+    }
+
+    private void UpdateHealthUI()
+    {
+        text.transform.position = Camera.main.WorldToScreenPoint(uiTransform.transform.position);
+        text.text = health.ToString();
     }
 
     private void Move()
@@ -74,7 +85,7 @@ public class Zara : MonoBehaviour
             animator.SetTrigger("isHit");
             SlowModeManager.Instance.PlayLandingSound();
             HitAsync().AttachExternalCancellation(this.destroyCancellationToken).Forget();
-            (Managers.UI.SceneUI as UI_InGameScene).DamageZaraHealth();
+            //(Managers.UI.SceneUI as UI_InGameScene).DamageZaraHealth();
             health--;
 
             if(health == 0)
@@ -87,6 +98,6 @@ public class Zara : MonoBehaviour
     public async UniTask HitAsync()
     {
         await rend.material.DOColor(Color.red, "_EmissionColor", 0.2f);
-        await rend.material.DOColor(Color.white, "_EmissionColor", 0.2f);
+        await rend.material.DOColor(new Color(2.1495f, 0.7226f, 0.3176f), "_EmissionColor", 0.2f);
     }
 }

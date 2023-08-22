@@ -22,6 +22,7 @@ namespace BBGamejam.Global.Mode
         private float easedSlowModeProgress;
         [ShowInInspector] private SkinnedMeshRenderer playerCharacterRenderer;
         private float slowModeDuration;
+        private SoundManager.SoundManagerAudio chargingAudio;
         public bool isSlowMode;
         public float fadeInOutTime = 0.5f;
         public float slowModeTimeScale = 0.1f;
@@ -38,7 +39,7 @@ namespace BBGamejam.Global.Mode
         public float zoomInMultiply = 0.75f;
 
         [Header("Sfx")]
-        public AudioClip slowModeSfx;
+        public AudioClip chargingSfx;
         public AudioClip jumpSfx;
         public AudioClip landingSfx;
 
@@ -53,13 +54,13 @@ namespace BBGamejam.Global.Mode
             if (Input.GetMouseButtonDown(0))
             {
                 isSlowMode = true;
-                SoundManager.PlayFx(slowModeSfx, 1, true);
+                chargingAudio = SoundManager.PlayFx(chargingSfx, 1, true);
             }
             else if(Input.GetMouseButtonUp(0))
             {
                 BubbleGenerator.Instance.Explosion(IngameManager.Instance.turtle.Value.transform.position);
                 isSlowMode = false;
-                SoundManager.StopAllFx();
+                SoundManager.StopFx(chargingAudio);
 
                 SoundManager.PlayFx(jumpSfx, 1);
 

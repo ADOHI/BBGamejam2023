@@ -57,7 +57,8 @@ namespace RabbitResurrection
             {
 
             }
-            Managers.UI.ShowSceneUI<UI_InGameScene>();
+            //Managers.UI.ShowSceneUI<UI_InGameScene>();
+           
             Zara.SetData(StartPoint, EndPoint);
             EnemyManager.SetData(Zara.gameObject);
             CineTarget.SetData(rabbit, Zara, CineCamera, cineTargetOffset, cameraDistance, cineCameraEulerAngle);

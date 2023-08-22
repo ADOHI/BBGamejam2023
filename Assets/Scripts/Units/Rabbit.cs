@@ -1,10 +1,14 @@
+using BBGamejam.Global.Ingame;
 using BBGamejam.Global.Mode;
 using BBGamejam.Global.Particles;
+using BBGamejam.Ingame.UI;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RabbitResurrection
 {
@@ -23,6 +27,15 @@ namespace RabbitResurrection
         private Coroutine AirChargeRoutine = null;
         private int seatCount = 0;
 
+
+        [Header("UIs")]
+        private List<Image> airUIImages = new();
+        public Transform uiTarget;
+        public Vector3 airUIOffset;
+        public GameObject airUIParent;
+        public Image airUIImagePrefab;
+        public Vector3 comboTextFromOffset;
+        public Vector3 comboTextToOffset;
         private void Awake()
         {
             animator = GetComponentInChildren<Animator>();
@@ -31,6 +44,11 @@ namespace RabbitResurrection
         private void Start()
         {
             Init();
+        }
+
+        private void Update()
+        {
+            airUIParent.transform.position = Camera.main.WorldToScreenPoint(uiTarget.position) + airUIOffset;
         }
 
         private void FixedUpdate()
@@ -59,11 +77,11 @@ namespace RabbitResurrection
             _rigidbody.isKinematic = true;
 
             air = airMax;
-
-            for (int i = 0; i < air; i++)
+            SetMaxAirForUI(air);
+        /*    for (int i = 0; i < air; i++)
             {
                 ((UI_InGameScene)Managers.UI.SceneUI).AddRabbitAir();
-            }
+            }*/
 
             Seat();
 
@@ -81,23 +99,23 @@ namespace RabbitResurrection
                 if (isSeat)
                 {
                     Debug.Log("Push when seat");
-
                     isSeat = false;
+                    IngameManager.Instance.ResetCombo();
+
                 }
 
                 transform.forward = force.normalized;
-
-                _rigidbody.AddForce(_rigidbody.mass * force, ForceMode.Impulse);
+                Debug.Log(force.normalized);
+                _rigidbody.AddForce(_rigidbody.mass * force, ForceMode.VelocityChange);
                 UseAir();
-
+            }
+            else
+            {
                 if (air == 0)
                 {
                     (Managers.Scene.CurrentScene as InGameScene).Zara.Damaged();
                     Seat();
                 }
-            }
-            else
-            {
                 Debug.Log("산소 추진체 부족");
             }
         }
@@ -106,8 +124,10 @@ namespace RabbitResurrection
         {
             if (air < airMax)
             {
-                (Managers.UI.SceneUI as UI_InGameScene).AddRabbitAir();
+                Debug.Log("Charge Air");
+                //(Managers.UI.SceneUI as UI_InGameScene).AddRabbitAir();
                 air++;
+                SetAirUI(air, airMax);
             }
         }
 
@@ -115,9 +135,37 @@ namespace RabbitResurrection
         {
             if (air > 0)
             {
-                (Managers.UI.SceneUI as UI_InGameScene).DamageRabbitAir();
+                Debug.Log("Use Air");
+                //(Managers.UI.SceneUI as UI_InGameScene).DamageRabbitAir();
                 air--;
+                SetAirUI(air, airMax);
                 Managers.Game.AirCount++;
+            }
+        }
+
+        private void SetMaxAirForUI(int maxAir)
+        {
+            for (int i = 0; i < maxAir; i++)
+            {
+                var airUIImage = Instantiate(airUIImagePrefab);
+                airUIImages.Add(airUIImage);
+                airUIImage.transform.SetParent(airUIParent.transform);
+                airUIImage.gameObject.SetActive(true);
+            }
+        }
+
+        private void SetAirUI(int air, int maxAir)
+        {
+            for (int i = 0; i < maxAir; i++)
+            {
+                if (i < air)
+                {
+                    airUIImages[i].enabled = true;
+                }
+                else 
+                {
+                    airUIImages[i].enabled = false;
+                }
             }
         }
 
@@ -126,8 +174,57 @@ namespace RabbitResurrection
             Debug.Log("Seat");
             animator.SetBool("isIdle", true);
             isSeat = true;
-
             SlowModeManager.Instance.PlayLandingSound();
+
+            //hit
+            var zaraPosition = (Managers.Scene.CurrentScene as InGameScene).Zara.transform.position;
+            var rayDirection = (zaraPosition - transform.position).normalized;
+            var distance = Vector3.Distance(zaraPosition, transform.position);
+            var hits = Physics.SphereCastAll(uiTarget.transform.position, 1f, rayDirection, distance);
+
+            if (hits != null)
+            {
+                foreach (var hitItem in hits)
+                {
+                    if (hitItem.collider.tag == "Enemy")
+                    {
+                        BubbleGenerator.Instance.Hit(hitItem.transform.position);
+                        IngameManager.Instance.AddCombo();
+                        IngameUIManager.Instance.SpawnComboTextAsync(hitItem.transform.position, Vector3.up, 3f, DG.Tweening.Ease.OutQuint);
+                        hitItem.collider.GetComponent<Enemy>().Kill();
+                    }
+                }
+            }
+
+            //charge
+            if (!isCharging)
+            {
+                if (isImediately)
+                {
+                    while (air < airMax)
+                    {
+                        ChargeAir();
+                    }
+                }
+                else
+                {
+                    AirChargeRoutine = StartCoroutine(ChargeAirRoutine());
+                }
+
+                isCharging = true;
+            }
+
+            if (IngameManager.Instance.currentComboCount > 0)
+            {
+                IngameUIManager.Instance.SpawnFinalComboTextAsync(comboTextFromOffset, comboTextToOffset * 200f, 1f)
+                    .AttachExternalCancellation(IngameUIManager.Instance.destroyCancellationToken)
+                    .Forget();
+
+                IngameManager.Instance.PlayComboSound();
+                IngameManager.Instance.UpdateScore();
+            }
+
+
             //Zara zara = (Managers.Scene.CurrentScene as InGameScene).Zara;
             //gameObject.transform.SetParent(zara.transform);
             //gameObject.transform.localPosition = zara.Seat.transform.localPosition;
@@ -143,13 +240,14 @@ namespace RabbitResurrection
                 if (_rigidbody.velocity.magnitude > 0.1f)
                 {
                     BubbleGenerator.Instance.Hit(other.transform.position);
-                    AddTimeJitter(other).Forget();
+                    AddTimeJitterAndKill(other).Forget();
                 }
             }
 
             if (other.tag == "AirPocket")
             {
                 Debug.Log("AirPocket Enter");
+                Debug.Log(Time.frameCount);
                 if (isSeat == false)
                 {
                     if (seatCount == 0)
@@ -159,53 +257,42 @@ namespace RabbitResurrection
                     else
                     {
                         Seat();
-
                     }
                 }
 
-                if (!isCharging)
-                {
-                    if (isImediately)
-                    {
-                        while (air < airMax)
-                        {
-                            ChargeAir();
-                        }
-                    }
-                    else
-                    {
-                        AirChargeRoutine = StartCoroutine(ChargeAirRoutine());
-                    }
-
-                    isCharging = true;
-                }
             }
         }
 
-
-        private async UniTask AddTimeJitter(Collider other)
+        private async UniTask AddTimeJitterAndKill(Collider other)
         {
             Time.timeScale = 0.1f;
             await UniTask.Delay(100);
-            other.GetComponent<Enemy>().Kill();
+            if (other != null)
+            {
+                IngameManager.Instance.AddCombo();
+                IngameUIManager.Instance.SpawnComboTextAsync(other.transform.position, Vector3.up, 3f, DG.Tweening.Ease.OutQuint);
+                other.GetComponent<Enemy>().Kill();
+            }
             Time.timeScale = 1f;
         }
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.tag == "AirPocket" && isImediately && isCharging)
+            /*if (other.tag == "AirPocket" && isImediately && isCharging)
             {
                 while (air < airMax)
                 {
                     ChargeAir();
                 }
-            }
+
+            }*/
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.tag == "AirPocket")
             {
+                Debug.Log(Time.frameCount);
                 Debug.Log("Exit Air Pocket");
             }
 

@@ -585,7 +585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd9ea1f9b8a253e409bee4381cd8bedc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dontDestroyOnLoad: 0
+  _dontDestroyOnLoad: 1
   blackFadeImage: {fileID: 378801500}
   whiteFadeImage: {fileID: 102590916}
 --- !u!114 &379668083

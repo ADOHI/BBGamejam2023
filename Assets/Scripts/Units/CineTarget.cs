@@ -27,7 +27,7 @@ namespace RabbitResurrection
             SetBodyDistance(initialCameraDistance);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             transform.position = (rabbit.transform.position + zara.AirPocket.transform.position) * 0.5f + targetOffset;
             var position = transform.position;

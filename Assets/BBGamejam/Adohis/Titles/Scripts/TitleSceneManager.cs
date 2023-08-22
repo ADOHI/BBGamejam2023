@@ -49,6 +49,8 @@ namespace BBGamejam.Title
 
         private void Start()
         {
+            Time.timeScale = 1f;
+            SoundManager.StopAll();
             StartTitleSceneAsync().AttachExternalCancellation(this.destroyCancellationToken).Forget();
         }
 
@@ -67,7 +69,7 @@ namespace BBGamejam.Title
             SoundManager.PlayMusic(waveBgm, 1, true, 3f);
 
             await GlobalUIManager.Instance.FadeInAsync(3f, GlobalUIManager.FadeImageType.White);
-            
+
             await UniTask.Delay((int)(showTitleInterval * 1000f));
             
             ShowTitle();

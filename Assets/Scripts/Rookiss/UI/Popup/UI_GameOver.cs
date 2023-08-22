@@ -1,3 +1,4 @@
+using BBGamejam.Global.Ingame;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

@@ -1,3 +1,4 @@
+using Dweiss;
 using UnityEngine;
 
 namespace RabbitResurrection
@@ -26,8 +27,8 @@ namespace RabbitResurrection
             _dotsList = new Transform[dotsNumber];
             dotPrefab.localScale = Vector3.one * dotMaxScale;
 
-            float scale = dotMaxScale;
-            float scaleFactor = scale / dotsNumber;
+            //float scale = dotMaxScale;
+            //float scaleFactor = scale / dotsNumber;
 
             for (int i = 0; i < dotsNumber; i++)
             {
@@ -35,24 +36,34 @@ namespace RabbitResurrection
                 _dotsList[i].parent = dotsParent.transform;
                 _dotsList[i].gameObject.SetActive(true);
 
-                _dotsList[i].localScale = Vector3.one * scale;
+                //_dotsList[i].localScale = Vector3.one * scale;
 
-                if (scale > dotMinScale)
+                /*if (scale > dotMinScale)
                 {
                     scale -= scaleFactor;
-                }
+                }*/
             }
         }
 
-        public void UpdateDots(Vector3 rabbitPosition, Vector3 forceApplied, float drag)
+        public void UpdateDots(Rigidbody rb, Vector3 rabbitPosition, Vector3 forceApplied, float drag)
         {
-            dotsParent.transform.position = rabbitPosition;
+            //var positions = GetTrajectoryPredictionPoints(rabbitPosition, forceApplied, drag, dotsNumber, Time.fixedDeltaTime);
+
+            /*dotsParent.transform.position = rabbitPosition;
 
             float timeStamp = dotSpacing;
 
-            dotsParent.transform.position = Camera.main.WorldToScreenPoint(rabbitPosition);
+            dotsParent.transform.position = Camera.main.WorldToScreenPoint(rabbitPosition);*/
+            dotsParent.transform.position = Vector3.zero;
 
-            foreach (var dot in _dotsList)
+            var positions = rb.CalculateMovement(dotsNumber, 5, forceApplied);
+
+            for (int i = 0; i < _dotsList.Length; i++)
+            {
+                _dotsList[i].transform.position = positions[i];
+                _dotsList[i].LookAt(Camera.main.transform);
+            }
+/*            foreach (var dot in _dotsList)
             {
                 Vector3 dotPos;
 
@@ -62,7 +73,7 @@ namespace RabbitResurrection
                 dot.position = dotPos;
                 dot.LookAt(Camera.main.transform);
                 timeStamp += dotSpacing;
-            }
+            }*/
         }
 
         public void Show()
@@ -74,5 +85,6 @@ namespace RabbitResurrection
         {
             dotsParent.gameObject.SetActive(false);
         }
+
     }
 }

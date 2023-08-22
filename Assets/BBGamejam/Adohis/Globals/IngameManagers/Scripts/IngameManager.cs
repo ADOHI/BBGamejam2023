@@ -2,8 +2,10 @@ using Pixelplacement;
 using RabbitResurrection;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityAtoms.BaseAtoms;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BBGamejam.Global.Ingame
 {
@@ -15,10 +17,21 @@ namespace BBGamejam.Global.Ingame
         [Header("IngameProgress")]
         public float goalXPos;
         public float progress;
+        [Header("Combo")]
+        public int currentComboCount;
+        public int firstComboThreshold = 5;
+        public int secondComboThreshold = 10;
         [Header("Score")]
-        public float score;
+        public IntReference score;
         [Header("Sounds")]
         public AudioClip ingameBgm;
+        public AudioClip comboSfxFirst;
+        public AudioClip comboSfxSecond;
+
+        private void Awake()
+        {
+            score.Value = 0;
+        }
 
         private void Start()
         {
@@ -42,6 +55,48 @@ namespace BBGamejam.Global.Ingame
                 Managers.Game.GameClear();
             }
         }
+
+        public void ToTitleScene()
+        {
+            SceneManager.LoadScene(1);
+        }
+
+        public void AddCombo()
+        {
+            currentComboCount++;
+        }
+
+        public void ResetCombo()
+        {
+            currentComboCount = 0;
+        }
+
+        public void PlayComboSound()
+        {
+            if (currentComboCount < firstComboThreshold)
+            {
+
+            }
+            else if (currentComboCount < secondComboThreshold)
+            {
+                SoundManager.PlayFx(comboSfxFirst);
+            }
+            else
+            {
+                SoundManager.PlayFx(comboSfxSecond);
+            }
+        }
+
+        public int BasicScore => currentComboCount * 10;
+        public int BonusScore => currentComboCount * currentComboCount * 2;
+
+        public void UpdateScore()
+        {
+            var calculatedScore = BasicScore + BonusScore;
+
+            score.Value += calculatedScore;
+        }
+
     }
 
 }
